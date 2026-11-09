@@ -25,24 +25,31 @@ A community tool for Zenless Zone Zero: build **tier lists** and **strength × e
 
 The UI follows a "graphite black × neon lime" ZZZ-native design and supports four languages (Traditional Chinese / English / 日本語 / 한국어); both UI strings and agent names switch instantly.
 
-## Getting Started
+## Player's Guide
 
-**Online (GitHub Pages)**
+**Roster coverage**
 
-1. Go to `Settings → Pages`
-2. Set Source to `Deploy from a branch`, Branch to `main` / `(root)`
-3. Visit `https://anku0910.github.io/zzz-tierlist/`
+- **63 agents** at launch (unreleased ones shown grayscale), **14 official factions**, 7 roles (Attack / Stun / Anomaly / Support / Defense / Rupture / Vanguard), 7 attributes + 4 special attributes (Lumen / Rime / Frost / Ink)
+- Roles, attributes, and rarity are hand-verified (rarity cross-checked against Fandom); data corrections are welcome via PRs to `data.js`
 
-**Local**
+**Controls cheat sheet**
 
-```bash
-git clone https://github.com/anku0910/zzz-tierlist.git
-cd zzz-tierlist
-python -m http.server 8000
-# Open http://127.0.0.1:8000/
-```
+| Action | Tier list | 2-axis chart |
+|---|---|---|
+| Place | Drag into a tier / click to quick-place | Pick an agent, click the board / drag in |
+| Return | Double-click card / drag back to library | "Remove from chart" |
+| Fine-tune | — | Arrow keys or `W A S D` (`Shift` = 5× step) |
+| Overlap pick | — | Double-click to cycle |
+| Z-order | — | "Bring to front" |
+| Image mode | Right-click card: Portrait / Chibi / Avatar | — |
 
-Or simply open `index.html` (works via `file://` too).
+**Publishing workflow (Discord / Reddit / forums)**
+
+1. **Narrow the pool** — filter by faction logo or "show role" to focus on what you're ranking
+2. **Sweep fast** — sort by rarity/attribute; place S-ranks first, fill in A-ranks
+3. **2-axis positioning** — switch to the chart, plot Strength × Ease of Use; axis labels are customizable (e.g. "Shiyu DPS / Newbie-friendly")
+4. **Export** — PNG at 2× scale with composited dark background, ready to paste with no post-editing
+5. **Share** — the share link carries the full board state; JSON export keeps a version snapshot
 
 ## Features
 
