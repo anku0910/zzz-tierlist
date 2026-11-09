@@ -15,6 +15,7 @@ const I18N = window.I18N;
     roleFilter: "all",
     attributeFilter: "all",
     poolSort: "default",
+    femaleStatCat: "height",
     showNames: true,
     imgMode: "square",
     imgOverride: {},
@@ -93,6 +94,7 @@ const I18N = window.I18N;
     renderRoleSelect();
     renderAttributeSelect();
     renderRoleViewSelects();
+    renderSortSelect();
     applyImageMode();
     applyNameVisibility();
     renderTiers();
@@ -106,6 +108,7 @@ const I18N = window.I18N;
       renderRoleSelect();
       renderAttributeSelect();
       renderRoleViewSelects();
+      renderSortSelect();
       renderTierCards();
       renderPool();
       updateCounts();
@@ -173,7 +176,11 @@ const I18N = window.I18N;
       state.selectedFactions = new Set(Array.isArray(data.selectedFactions) ? data.selectedFactions : []);
       state.roleFilter = typeof data.roleFilter === 'string' ? data.roleFilter : "all";
       state.attributeFilter = typeof data.attributeFilter === 'string' ? data.attributeFilter : "all";
-      state.poolSort = typeof data.poolSort === 'string' ? data.poolSort : "default";
+      const LEGACY_SORT = { name: "name:asc", role: "role:asc", attribute: "attribute:asc", rank: "rank:desc" };
+      let legacySort = typeof data.poolSort === 'string' ? data.poolSort : "default";
+      if (LEGACY_SORT[legacySort]) legacySort = LEGACY_SORT[legacySort];
+      state.poolSort = legacySort;
+      state.femaleStatCat = MEASURE_CATS.includes(data.femaleStatCat) ? data.femaleStatCat : "height";
       state.showNames = data.showNames !== false;
       state.imgMode = typeof data.imgMode === 'string' ? data.imgMode : "square";
       state.imgOverride = data.imgOverride && typeof data.imgOverride === 'object' ? data.imgOverride : {};
@@ -239,6 +246,7 @@ const I18N = window.I18N;
       roleFilter: state.roleFilter,
       attributeFilter: state.attributeFilter,
       poolSort: state.poolSort,
+      femaleStatCat: state.femaleStatCat,
       showNames: state.showNames,
       imgMode: state.imgMode,
       imgOverride: state.imgOverride,
@@ -328,6 +336,90 @@ const I18N = window.I18N;
     return `<b class="card-badge ${className}" style="--badge:${color || '#6b7280'}">${escapeHtml(text)}</b>`;
   }
 
+  /* ---------- sort options & measurement mode ---------- */
+
+  const EROTIC_KEY = "zzz-erotic-on";
+  const MEASURE_CATS = ["height", "bust", "hip", "thigh", "cup"];
+  const CUP_ORDER = ["", "A", "B", "C", "D", "DD", "E", "F", "FF", "G", "GG", "H", "HH", "J", "JJ", "K"];
+
+  function eroticOn() {
+    try { return localStorage.getItem(EROTIC_KEY) === "1"; } catch (e) { return false; }
+  }
+
+  function setEroticOn(on) {
+    try {
+      if (on) localStorage.setItem(EROTIC_KEY, "1");
+      else localStorage.removeItem(EROTIC_KEY);
+    } catch (e) { /* noop */ }
+  }
+
+  function statsMode() {
+    return typeof state.poolSort === "string" && state.poolSort.startsWith("female_stats");
+  }
+
+  function cupRank(cup) {
+    const idx = CUP_ORDER.indexOf(String(cup || "").replace(/^\d+/, ""));
+    return idx === -1 ? CUP_ORDER.length : idx;
+  }
+
+  function renderSortSelect() {
+    const sel = elements.poolSort;
+    const opts = [["default", I18N.t("sort.default")]];
+    ["name", "role", "attribute", "rank"].forEach(k => {
+      opts.push([k + ":asc", I18N.t("sort." + k) + " ↑"]);
+      opts.push([k + ":desc", I18N.t("sort." + k) + " ↓"]);
+    });
+    if (eroticOn()) {
+      opts.push(["female_stats:asc", I18N.t("sort.female_stats") + " ↑"]);
+      opts.push(["female_stats:desc", I18N.t("sort.female_stats") + " ↓"]);
+    }
+    sel.innerHTML = opts.map(([v, label]) => `<option value="${v}">${escapeHtml(label)}</option>`).join("");
+    if (!opts.some(([v]) => v === state.poolSort)) state.poolSort = "default";
+    sel.value = state.poolSort;
+    renderSortSub();
+    applyStatsMode();
+  }
+
+  function renderSortSub() {
+    let sub = document.getElementById("sort-sub");
+    if (!statsMode()) {
+      if (sub) sub.remove();
+      return;
+    }
+    if (!sub) {
+      sub = document.createElement("details");
+      sub.id = "sort-sub";
+      sub.className = "sort-sub";
+      const row = elements.poolSort.closest(".filter-row");
+      (row || elements.poolSort.parentElement).insertAdjacentElement("afterend", sub);
+      sub.innerHTML = `<summary>${escapeHtml(I18N.t("stats.sub_toggle"))}</summary><select id="stats-cat-select"></select>`;
+      sub.querySelector("select").addEventListener("change", e => {
+        state.femaleStatCat = e.target.value;
+        saveState();
+        renderPool();
+      });
+    }
+    const catSel = sub.querySelector("select");
+    catSel.innerHTML = MEASURE_CATS.map(k => `<option value="${k}">${escapeHtml(I18N.t("stats.cat." + k))}</option>`).join("");
+    catSel.value = state.femaleStatCat;
+  }
+
+  function applyStatsMode() {
+    document.body.dataset.statsMode = statsMode() ? "on" : "off";
+  }
+
+  function statsTipHtml(agent) {
+    if (typeof agent.height !== "number") return "";
+    const rows = [
+      ["stats.cat.height", agent.height + " cm"],
+      ["stats.cat.bust", agent.bust + " cm"],
+      ["stats.cat.hip", agent.hip + " cm"],
+      ["stats.cat.thigh", agent.thigh != null ? agent.thigh + " cm" : "—"],
+      ["stats.cat.cup", agent.cup || "—"],
+    ];
+    return `<div class="stats-tip" aria-hidden="true">${rows.map(([k, v]) => `<span><i>${escapeHtml(I18N.t(k))}</i><b>${escapeHtml(String(v))}</b></span>`).join("")}</div>`;
+  }
+
   function cardBadges(agent) {
     const primary = agent.attribute && SPECIAL_ATTRIBUTES.includes(agent.attribute) ? null : agent.attribute;
     const specials = specialAttrsOf(agent);
@@ -339,7 +431,7 @@ const I18N = window.I18N;
   }
 
   function cardHtml(agent, extraAttrs) {
-    const img = resolveImg(agent) || IMG_FALLBACK;
+    const img = statsMode() && agent.id === "belle" ? "assets/zzz/belle-animated.gif" : (resolveImg(agent) || IMG_FALLBACK);
     return `
       <div class="agent-card" draggable="true" tabindex="0" role="button" data-id="${agent.id}" data-role="${escapeHtml(agent.role || '')}" data-img-mode="${escapeHtml(imgModeFor(agent.id))}"${extraAttrs || ''} title="${escapeHtml(I18N.agentName(agent))} · ${escapeHtml(factionList(agent).join(' / '))}" aria-label="${escapeHtml(I18N.agentName(agent))}">
         <img src="${escapeHtml(img)}" alt="${escapeHtml(I18N.agentName(agent))}" width="128" height="128" loading="lazy" onerror="this.onerror=null; this.src='${IMG_FALLBACK}'">
@@ -348,6 +440,7 @@ const I18N = window.I18N;
         ${agent.rank ? `<b class="card-rank" style="--badge:${(RANK_META[agent.rank] || {}).color || '#6b7280'}">${escapeHtml(agent.rank)}</b>` : ''}
         ${specialAttrsOf(agent).length > 0 ? `<i class="card-special-dot" style="--dot:${ATTRIBUTE_COLORS[specialAttrsOf(agent)[0]] || '#f8b5b9'}"></i>` : ''}
         <span><small>${escapeHtml(factionList(agent).join('・'))}</small>${escapeHtml(I18N.agentName(agent))}</span>
+        ${statsMode() ? statsTipHtml(agent) : ''}
       </div>
     `;
   }
@@ -383,7 +476,9 @@ const I18N = window.I18N;
 
   function getFilteredAgents() {
     return AGENTS.filter(agent => {
-      if (NON_PC_IDS.includes(agent.id)) return false;
+      if (statsMode()) {
+        if (typeof agent.height !== "number") return false;
+      } else if (NON_PC_IDS.includes(agent.id)) return false;
       if (state.selectedFactions.size > 0 && !factionList(agent).some(f => state.selectedFactions.has(f))) return false;
       if (state.roleFilter !== "all" && agent.role !== state.roleFilter) return false;
       if (state.attributeFilter !== "all") {
@@ -410,15 +505,23 @@ const I18N = window.I18N;
       return i === -1 ? values.length : i;
     };
     const rankOrder = { S: 0, A: 1 };
-    switch (state.poolSort) {
+    const [base, dir] = String(state.poolSort || "default").split(":");
+    const asc = dir !== "desc";
+    const flip = arr => (asc ? arr : arr.reverse());
+    switch (base) {
       case "name":
-        return list.slice().sort(byName);
+        return flip(list.slice().sort(byName));
       case "role":
-        return list.slice().sort((a, b) => indexOf(ROLES, a.role) - indexOf(ROLES, b.role) || byName(a, b));
+        return flip(list.slice().sort((a, b) => indexOf(ROLES, a.role) - indexOf(ROLES, b.role) || byName(a, b)));
       case "attribute":
-        return list.slice().sort((a, b) => indexOf(ATTRIBUTES, a.attribute) - indexOf(ATTRIBUTES, b.attribute) || byName(a, b));
+        return flip(list.slice().sort((a, b) => indexOf(ATTRIBUTES, a.attribute) - indexOf(ATTRIBUTES, b.attribute) || byName(a, b)));
       case "rank":
-        return list.slice().sort((a, b) => (rankOrder[a.rank] ?? 9) - (rankOrder[b.rank] ?? 9) || byName(a, b));
+        return flip(list.slice().sort((a, b) => (rankOrder[a.rank] ?? 9) - (rankOrder[b.rank] ?? 9) || byName(a, b)));
+      case "female_stats": {
+        const cat = MEASURE_CATS.includes(state.femaleStatCat) ? state.femaleStatCat : "height";
+        const val = a => (cat === "cup" ? cupRank(a.cup) : (typeof a[cat] === "number" ? a[cat] : -1));
+        return flip(list.slice().sort((a, b) => (val(a) - val(b)) || byName(a, b)));
+      }
       default:
         return list;
     }
@@ -513,7 +616,10 @@ const I18N = window.I18N;
 
     elements.poolSort.addEventListener('change', e => {
       state.poolSort = e.target.value;
+      renderSortSub();
+      applyStatsMode();
       renderPool();
+      updateCounts();
       saveState();
     });
 
@@ -598,6 +704,7 @@ const I18N = window.I18N;
       elements.roleSelect.value = "all";
       elements.attributeSelect.value = "all";
       elements.poolSort.value = "default";
+      renderSortSelect();
       document.querySelectorAll('.zzz-faction-button').forEach(b => b.classList.remove('active'));
       renderPool();
       updateCounts();
@@ -1110,6 +1217,7 @@ const I18N = window.I18N;
           </ul>
         </div>
         <div class="modal-actions">
+          <button class="btn btn-erotic" id="tutorial-erotic" type="button" aria-pressed="${eroticOn() ? 'true' : 'false'}">${escapeHtml(I18N.t('tutorial.erotic'))}${eroticOn() ? '：ON' : '：OFF'}</button>
           <button class="btn btn-primary" id="tutorial-close" type="button">開始使用</button>
         </div>
       </div>
@@ -1122,6 +1230,15 @@ const I18N = window.I18N;
       maybeAskName();
     };
     modal.querySelector('#tutorial-close').addEventListener('click', close);
+    const eroticBtn = modal.querySelector('#tutorial-erotic');
+    eroticBtn.addEventListener('click', () => {
+      const on = !eroticOn();
+      setEroticOn(on);
+      eroticBtn.setAttribute('aria-pressed', String(on));
+      eroticBtn.textContent = I18N.t('tutorial.erotic') + (on ? '：ON' : '：OFF');
+      renderSortSelect();
+      showToast(I18N.t('tutorial.erotic') + (on ? '：ON' : '：OFF'), 'info');
+    });
     modal.addEventListener('click', e => { if (e.target === modal) close(); });
     modal.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
   }

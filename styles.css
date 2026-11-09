@@ -604,3 +604,37 @@ body[data-view="chart"] .chart-tools .chart-roster { flex: 1; max-height: none; 
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; }
 }
+
+/* ── 女性角色測量數據模式 ── */
+#stats-source-btn { display: none; }
+body[data-stats-mode="on"] #stats-source-btn { display: inline-flex; }
+.sort-sub { margin: 8px 4px 0; }
+.sort-sub summary { cursor: pointer; font-family: var(--mono); font-size: 0.72rem; font-weight: 700; color: var(--dim); user-select: none; }
+.sort-sub select { width: 100%; margin-top: 6px; }
+.btn-erotic { background: #ff8fae; border-color: #ff8fae; color: #24000d; }
+.btn-erotic:hover { background: #ff7aa0; }
+.btn-erotic[aria-pressed="true"] { box-shadow: inset 0 0 0 2px #24000d; }
+.stats-tip {
+  position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%);
+  min-width: 132px; padding: 8px 10px; z-index: 40;
+  background: linear-gradient(120deg, rgba(30,30,36,.94), rgba(96,96,108,.88), rgba(30,30,36,.94));
+  background-size: 300% 300%;
+  border: 1px solid var(--line);
+  box-shadow: 0 10px 24px rgba(0,0,0,.55);
+  animation: stats-bg 7s ease-in-out infinite;
+  opacity: 0; pointer-events: none; transition: opacity 140ms var(--transition);
+  white-space: nowrap;
+}
+.agent-card:hover .stats-tip, .agent-card:focus-within .stats-tip { opacity: 1; }
+.stats-tip span { display: flex; justify-content: space-between; gap: 12px;
+  background: linear-gradient(90deg, #d9d9e0, #8e93a0, #f4f4f8, #8e93a0, #d9d9e0);
+  background-size: 250% 100%; -webkit-background-clip: text; background-clip: text;
+  color: transparent; font-size: 0.72rem; line-height: 1.55;
+  animation: stats-flow 4s linear infinite; }
+.stats-tip span i { font-style: normal; font-family: var(--mono); }
+@keyframes stats-flow { to { background-position: -250% 0; } }
+@keyframes stats-bg { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+@media (prefers-reduced-motion: reduce) {
+  .stats-tip, .stats-tip span { animation: none; }
+  .stats-tip span { color: #d9d9e0; -webkit-text-fill-color: #d9d9e0; }
+}

@@ -26,8 +26,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@800&family=Noto+Sans+TC:wght@400;500;700;900&family=Roboto+Mono:wght@500;700&display=swap" rel="stylesheet">
-  <script src="i18n.js?v=20261109e"></script>
-  <link rel="stylesheet" href="styles.css?v=20261109e">
+  <script src="i18n.js?v=20261109f"></script>
+  <link rel="stylesheet" href="styles.css?v=20261109f">
 </head>
 <body data-view="tier">
   <div class="bg-drift" aria-hidden="true">
@@ -83,6 +83,7 @@
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true" focusable="false"><path d="M21 15v6H3v-6"/><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/></svg>
         <span data-i18n="btn.download">下載 PNG</span>
       </button>
+      <a class="btn btn-secondary" id="stats-source-btn" href="https://modelmetrics.net/measurements/zzz/" target="_blank" rel="noopener" data-i18n="stats.source">測量數據來源</a>
       <div class="menu-wrap">
         <button class="btn btn-secondary" id="share-menu-btn" type="button" aria-haspopup="true" aria-expanded="false" data-i18n="btn.share">
           <span data-i18n="btn.share">分享與匯出</span>
@@ -208,13 +209,7 @@
         <div class="filter-row">
           <select id="zzz-role-select" aria-label="職業篩選" data-i18n-aria="aria.role_filter"><option value="all" data-i18n="filter.all_roles">全部職業</option></select>
           <select id="zzz-attribute-select" aria-label="屬性篩選" data-i18n-aria="aria.attr_filter"><option value="all" data-i18n="filter.all_attrs">全部屬性</option></select>
-          <select id="agent-pool-sort" aria-label="排序" data-i18n-aria="aria.sort">
-            <option value="default" data-i18n="sort.default">預設排序</option>
-            <option value="name" data-i18n="sort.name">依名稱</option>
-            <option value="role" data-i18n="sort.role">依職業</option>
-            <option value="attribute" data-i18n="sort.attribute">依屬性</option>
-            <option value="rank" data-i18n="sort.rank">依稀有度</option>
-          </select>
+          <select id="agent-pool-sort" aria-label="排序" data-i18n-aria="aria.sort"></select>
         </div>
         <div class="faction-filters" id="zzz-faction-filters"></div>
         <div class="pool-head">
@@ -229,9 +224,9 @@
 
   <div class="toast" id="toast" role="status" hidden></div>
 
-  <script src="i18n.js?v=20261109e"></script>
-  <script src="data.js?v=20261109e"></script>
-  <script src="chart.js?v=20261109e"></script>
-  <script src="app.js?v=20261109e"></script>
+  <script src="i18n.js?v=20261109f"></script>
+  <script src="data.js?v=20261109f"></script>
+  <script src="chart.js?v=20261109f"></script>
+  <script src="app.js?v=20261109f"></script>
 </body>
 </html>
