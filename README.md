@@ -2,7 +2,7 @@
 
 # 絕區零 Tier List 製作器
 
-**Zenless Zone Zero 階級表 × 二維圖 排行工具 — 純前端、零建置、完全離線**
+**Zenless Zone Zero 階級表 × 二維圖 排行工具 — 桌面、手機、離線也能用**
 
 [![JavaScript](https://img.shields.io/badge/JavaScript-Vanilla-F7DF1E?style=flat-square&logo=javascript&logoColor=black)](https://github.com/anku0910/zzz-tierlist)
 [![Runtime](https://img.shields.io/badge/Runtime-100%25_Offline-4c1?style=flat-square)](https://github.com/anku0910/zzz-tierlist)
