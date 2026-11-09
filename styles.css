@@ -634,28 +634,27 @@ body[data-stats-mode="on"] #stats-source-btn { display: inline-flex; }
 }
 .cycle-menu button:hover { background: var(--panel-2); color: var(--acc); }
 .cycle-menu button[aria-selected="true"] { color: var(--acc); background: rgba(212, 255, 63, 0.07); }
-/* 好色選單開關：貼紙感小膠囊（左下、斜切、微透明、ON 時心跳） */
-.tutorial-modal .modal-actions { position: relative; }
+/* 好色選單開關：貼紙感小膠囊，貼齊教學遮罩層（.tier-editor-modal）左下角 */
 .btn-erotic {
-  position: absolute; left: 0; bottom: 0;
-  transform: rotate(-3deg) scale(0.4);
+  position: fixed; left: 1.25rem; bottom: 1.25rem; z-index: 10;
+  transform: scale(0.8);
   transform-origin: left bottom;
   display: inline-flex; align-items: center; gap: 0.45em;
   padding: 0.34em 0.8em;
   font-family: var(--mono); font-size: 0.6rem; font-weight: 800; letter-spacing: 0.04em;
-  color: #ffb3c8; background: rgba(255, 143, 174, 0.12);
-  border: 1px dashed rgba(255, 143, 174, 0.6);
+  color: rgb(255, 175, 184); background: rgba(255, 175, 184, 0.12);
+  border: 1px dashed rgba(255, 175, 184, 0.6);
   opacity: 0.78;
   clip-path: polygon(0.55em 0, 100% 0, 100% calc(100% - 0.55em), calc(100% - 0.55em) 100%, 0 100%);
-  transition: opacity var(--transition), background var(--transition), border-color var(--transition), color var(--transition);
+  transition: opacity var(--transition), background var(--transition), border-color var(--transition);
 }
 .btn-erotic .heart { width: 1.05em; height: 1.05em; fill: currentColor; flex: 0 0 auto; }
-.btn-erotic:hover { opacity: 1; transform: rotate(-3deg) scale(0.46); background: rgba(255, 143, 174, 0.24); border-color: #ff8fae; color: #ffd9e4; }
+.btn-erotic:hover { opacity: 1; transform: scale(0.9); background: rgba(255, 175, 184, 0.26); border-color: rgb(255, 175, 184); }
 .btn-erotic[aria-pressed="true"] {
-  color: #ffe3ec; border-style: solid; border-color: #ff5c8a;
-  background: rgba(255, 92, 138, 0.32);
+  color: rgb(255, 175, 184); border-style: solid; border-color: rgb(255, 175, 184);
+  background: rgba(255, 175, 184, 0.3);
 }
-.btn-erotic[aria-pressed="true"] .heart { fill: #ff5c8a; animation: heartbeat 1.3s ease-in-out infinite; }
+.btn-erotic[aria-pressed="true"] .heart { fill: rgb(255, 175, 184); animation: heartbeat 1.3s ease-in-out infinite; }
 @keyframes heartbeat {
   0%, 100% { transform: scale(1); }
   22% { transform: scale(1.35); }
