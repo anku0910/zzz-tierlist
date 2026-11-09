@@ -11,6 +11,7 @@
 [繁體中文](../README.md) · [English](README.en.md) · [日本語](README.ja.md) · [한국어](README.ko.md)
 
 <img src="screenshots/tier-view.png" width="800" alt="ティアリスト画面">
+<img src="screenshots/T2.png" width="800" alt="2軸チャート展示">
 
 </div>
 

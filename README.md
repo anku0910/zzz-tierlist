@@ -11,6 +11,7 @@
 [繁體中文](README.md) · [English](docs/README.en.md) · [日本語](docs/README.ja.md) · [한국어](docs/README.ko.md)
 
 <img src="docs/screenshots/tier-view.png" width="800" alt="階級表畫面">
+<img src="docs/screenshots/T2.png" width="800" alt="二維圖展示">
 
 </div>
 

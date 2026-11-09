@@ -11,6 +11,7 @@
 [繁體中文](../README.md) · [English](README.en.md) · [日本語](README.ja.md) · [한국어](README.ko.md)
 
 <img src="screenshots/tier-view.png" width="800" alt="티어 리스트 화면">
+<img src="screenshots/T2.png" width="800" alt="2축 차트 소개">
 
 </div>
 
