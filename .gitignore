@@ -1,0 +1,5 @@
+# Dev-only artifacts (not needed on GitHub)
+_verify/
+zzz_assets/
+__pycache__/
+*.pyc
