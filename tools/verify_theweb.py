@@ -47,7 +47,7 @@ with sync_playwright() as p:
     check("sunbringer in pool", "sunbringer" in ids)
     check("sunbringer asset on disk", (WEB / "assets" / "zzz" / "agents-square" / "sunbringer.webp").exists())
     check("14 faction chips", page.locator(".zzz-faction-button").count() == 14)
-    check("55 profile assets", len(list((WEB / "assets" / "zzz" / "profiles").glob("*.webp"))) == 55)
+    check("63 profile assets", len(list((WEB / "assets" / "zzz" / "profiles").glob("*.webp"))) == 63)
 
     # 1a. dual-faction agent appears under both factions
     page.click(".zzz-faction-button[data-faction='狡兔屋']")
