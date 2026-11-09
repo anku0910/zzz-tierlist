@@ -637,8 +637,9 @@ body[data-stats-mode="on"] #stats-source-btn { display: inline-flex; }
 /* 好色選單開關：貼紙感小膠囊（左下、斜切、微透明、ON 時心跳） */
 .tutorial-modal .modal-actions { position: relative; }
 .btn-erotic {
-  position: absolute; left: 0; top: 50%;
-  transform: translateY(-50%) rotate(-3deg);
+  position: absolute; left: 0; bottom: 0;
+  transform: rotate(-3deg) scale(0.4);
+  transform-origin: left bottom;
   display: inline-flex; align-items: center; gap: 0.45em;
   padding: 0.34em 0.8em;
   font-family: var(--mono); font-size: 0.6rem; font-weight: 800; letter-spacing: 0.04em;
@@ -649,7 +650,7 @@ body[data-stats-mode="on"] #stats-source-btn { display: inline-flex; }
   transition: opacity var(--transition), background var(--transition), border-color var(--transition), color var(--transition);
 }
 .btn-erotic .heart { width: 1.05em; height: 1.05em; fill: currentColor; flex: 0 0 auto; }
-.btn-erotic:hover { opacity: 1; background: rgba(255, 143, 174, 0.24); border-color: #ff8fae; color: #ffd9e4; }
+.btn-erotic:hover { opacity: 1; transform: rotate(-3deg) scale(0.46); background: rgba(255, 143, 174, 0.24); border-color: #ff8fae; color: #ffd9e4; }
 .btn-erotic[aria-pressed="true"] {
   color: #ffe3ec; border-style: solid; border-color: #ff5c8a;
   background: rgba(255, 92, 138, 0.32);

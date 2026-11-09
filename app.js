@@ -770,8 +770,6 @@ const I18N = window.I18N;
       saveState();
     });
 
-    elements.tutorialBtn.addEventListener('click', () => openTutorial());
-
     elements.exportBtn.addEventListener('click', exportJSON);
     elements.importBtn.addEventListener('click', () => elements.importFile.click());
     elements.importFile.addEventListener('change', e => {
