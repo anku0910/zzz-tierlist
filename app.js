@@ -464,11 +464,11 @@ const I18N = window.I18N;
     const poolAgents = getPoolAgents();
     const filteredTotal = getFilteredAgents().length;
     const chartView = state.view === 'chart';
-    elements.rankedCount.textContent = `已排行 ${rankedTotal}`;
-    elements.libraryCount.textContent = `${poolAgents.length} ${chartView ? '未配置' : '未排行'}`;
-    elements.visibleCount.textContent = `顯示 ${poolAgents.length} / ${filteredTotal}`;
+    elements.rankedCount.textContent = I18N.t('board.ranked', { n: rankedTotal });
+    elements.libraryCount.textContent = I18N.t(chartView ? 'sidebar.count.chart' : 'sidebar.count', { n: poolAgents.length });
+    elements.visibleCount.textContent = I18N.t('pool.visible', { x: poolAgents.length, y: filteredTotal });
     const poolHead = document.querySelector('.pool-head strong');
-    if (poolHead) poolHead.textContent = chartView ? '未配置角色' : '未排行角色';
+    if (poolHead) poolHead.textContent = I18N.t(chartView ? 'pool.head.chart' : 'pool.head.tier');
   }
 
   /* ---------- events ---------- */
@@ -708,14 +708,20 @@ const I18N = window.I18N;
           }
         },
         onPending: id => {
-          if (id) showToast('已選擇角色，點擊板面放置', 'info');
+          if (!id) return;
+          const picked = AGENTS.find(a => a.id === id);
+          showToast(I18N.t('app.toast.tier_picked', { name: I18N.agentName(picked) }), 'info');
         },
-        onExport: () => showToast('已匯出圖表 PNG', 'success'),
+        onExport: () => showToast(I18N.t('app.toast.chart_exported'), 'success'),
       },
     });
   }
 
   function syncChartTools() {
+    elements.chartAxisY.value = state.chart.axisY;
+    elements.chartAxisX.value = state.chart.axisX;
+    elements.chartAxisYLabel.textContent = state.chart.axisY;
+    elements.chartAxisXLabel.textContent = state.chart.axisX;
     const sel = state.chart.selected;
     const agent = sel ? AGENTS.find(a => a.id === sel) : null;
     const p = sel ? state.chart.points[sel] : null;
