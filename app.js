@@ -48,7 +48,7 @@ const I18N = window.I18N;
     elements.factionFilters = document.getElementById('zzz-faction-filters');
     elements.roleSelect = document.getElementById('zzz-role-select');
     elements.attributeSelect = document.getElementById('zzz-attribute-select');
-    elements.poolSort = document.getElementById('agent-pool-sort');
+
     elements.toggleNames = document.getElementById('agent-toggle-names');
     elements.imageModeSwitch = document.getElementById('image-mode-switch');
     elements.exportBtn = document.getElementById('rankly-export');
@@ -220,7 +220,7 @@ const I18N = window.I18N;
     elements.searchInput.value = state.searchQuery;
     elements.roleSelect.value = state.roleFilter;
     elements.attributeSelect.value = state.attributeFilter;
-    elements.poolSort.value = state.poolSort;
+
     elements.tierRoleView.value = state.tierRoleView;
     elements.chartRoleView.value = state.chartRoleView;
     elements.toggleNames.checked = state.showNames;
@@ -362,62 +362,155 @@ const I18N = window.I18N;
     return idx === -1 ? CUP_ORDER.length : idx;
   }
 
-  function renderSortSelect() {
-    const sel = elements.poolSort;
-    const opts = [["default", I18N.t("sort.default")]];
-    ["name", "role", "attribute", "rank"].forEach(k => {
-      opts.push([k + ":asc", I18N.t("sort." + k) + " ↑"]);
-      opts.push([k + ":desc", I18N.t("sort." + k) + " ↓"]);
+  function sortBaseDir() {
+    const [base, dir] = String(state.poolSort || "default").split(":");
+    return { base: base || "default", dir: dir === "desc" ? "desc" : "asc" };
+  }
+
+  function setSort(base, dir) {
+    state.poolSort = base === "default" ? "default" : base + ":" + dir;
+  }
+
+  function sortItems() {
+    const items = [{ value: "default", label: I18N.t("sort.default") }];
+    ["name", "role", "attribute", "rank"].forEach(k => items.push({ value: k, label: I18N.t("sort." + k) }));
+    if (eroticOn()) items.push({ value: "female_stats", label: I18N.t("sort.female_stats") });
+    return items;
+  }
+
+  // Single-entry menu: picking the active entry again flips the ↑/↓ direction.
+  function cycleHtml(items, current, dir, showArrow) {
+    const arrow = dir === "desc" ? "↓" : "↑";
+    const cur = items.find(i => i.value === current);
+    return `
+      <button type="button" class="cycle-trigger" aria-haspopup="listbox" aria-expanded="false">
+        <span>${escapeHtml(cur ? cur.label : "")}</span>
+        ${showArrow ? `<i class="cycle-arrow">${arrow}</i>` : ""}
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"/></svg>
+      </button>
+      <div class="cycle-menu" role="listbox" hidden>
+        ${items.map(i => `<button type="button" role="option" data-value="${i.value}" aria-selected="${i.value === current}">${escapeHtml(i.label)}${i.value === current && showArrow ? ` <i class="cycle-arrow">${arrow}</i>` : ""}</button>`).join("")}
+      </div>`;
+  }
+
+  function closeCycles() {
+    document.querySelectorAll(".cycle-menu").forEach(m => { m.hidden = true; });
+    document.querySelectorAll(".cycle-trigger").forEach(t => t.setAttribute("aria-expanded", "false"));
+  }
+
+  function bindCycle(host, onPick) {
+    if (host.dataset.cycleBound) return;
+    host.dataset.cycleBound = "1";
+    host.addEventListener("click", e => {
+      const opt = e.target.closest(".cycle-menu [data-value]");
+      if (opt) { onPick(opt.dataset.value); return; }
+      const trigger = e.target.closest(".cycle-trigger");
+      if (!trigger) return;
+      const menu = host.querySelector(".cycle-menu");
+      const wasOpen = !!menu && !menu.hidden;
+      closeCycles();
+      if (menu && !wasOpen) { menu.hidden = false; trigger.setAttribute("aria-expanded", "true"); }
     });
-    if (eroticOn()) {
-      opts.push(["female_stats:asc", I18N.t("sort.female_stats") + " ↑"]);
-      opts.push(["female_stats:desc", I18N.t("sort.female_stats") + " ↓"]);
+  }
+
+  function pickSortBase(value) {
+    const { base, dir } = sortBaseDir();
+    const again = base === value && value !== "default";
+    setSort(value, again ? (dir === "asc" ? "desc" : "asc") : "asc");
+    closeCycles();
+    renderSortSelect();
+    renderPool();
+    updateCounts();
+    saveState();
+  }
+
+  function pickCat(value) {
+    const { dir } = sortBaseDir();
+    if (state.femaleStatCat === value) setSort("female_stats", dir === "asc" ? "desc" : "asc");
+    else { state.femaleStatCat = value; setSort("female_stats", "asc"); }
+    closeCycles();
+    renderSortSelect();
+    renderPool();
+    updateCounts();
+    saveState();
+  }
+
+  function renderSortSelect() {
+    const host = document.getElementById("sort-cycle");
+    if (host) {
+      const items = sortItems();
+      if (!items.some(i => i.value === sortBaseDir().base)) setSort("default", "asc");
+      const { base, dir } = sortBaseDir();
+      host.innerHTML = cycleHtml(items, base, dir, base !== "default");
+      bindCycle(host, pickSortBase);
     }
-    sel.innerHTML = opts.map(([v, label]) => `<option value="${v}">${escapeHtml(label)}</option>`).join("");
-    if (!opts.some(([v]) => v === state.poolSort)) state.poolSort = "default";
-    sel.value = state.poolSort;
-    renderSortSub();
+    renderSortCat();
     applyStatsMode();
   }
 
-  function renderSortSub() {
-    let sub = document.getElementById("sort-sub");
-    if (!statsMode()) {
-      if (sub) sub.remove();
-      return;
+  function renderSortCat() {
+    let host = document.getElementById("sort-cat");
+    if (!statsMode()) { if (host) host.remove(); return; }
+    if (!host) {
+      host = document.createElement("div");
+      host.id = "sort-cat";
+      host.className = "cycle-select";
+      const row = document.querySelector(".filter-row");
+      (row || document.body).insertAdjacentElement("afterend", host);
+      bindCycle(host, pickCat);
     }
-    if (!sub) {
-      sub = document.createElement("details");
-      sub.id = "sort-sub";
-      sub.className = "sort-sub";
-      const row = elements.poolSort.closest(".filter-row");
-      (row || elements.poolSort.parentElement).insertAdjacentElement("afterend", sub);
-      sub.innerHTML = `<summary>${escapeHtml(I18N.t("stats.sub_toggle"))}</summary><select id="stats-cat-select"></select>`;
-      sub.querySelector("select").addEventListener("change", e => {
-        state.femaleStatCat = e.target.value;
-        saveState();
-        renderPool();
-      });
-    }
-    const catSel = sub.querySelector("select");
-    catSel.innerHTML = MEASURE_CATS.map(k => `<option value="${k}">${escapeHtml(I18N.t("stats.cat." + k))}</option>`).join("");
-    catSel.value = state.femaleStatCat;
+    const { dir } = sortBaseDir();
+    const items = MEASURE_CATS.map(k => ({ value: k, label: I18N.t("stats.cat." + k) }));
+    host.innerHTML = cycleHtml(items, state.femaleStatCat, dir, true);
   }
 
   function applyStatsMode() {
     document.body.dataset.statsMode = statsMode() ? "on" : "off";
   }
 
-  function statsTipHtml(agent) {
-    if (typeof agent.height !== "number") return "";
-    const rows = [
-      ["stats.cat.height", agent.height + " cm"],
-      ["stats.cat.bust", agent.bust + " cm"],
-      ["stats.cat.hip", agent.hip + " cm"],
-      ["stats.cat.thigh", agent.thigh != null ? agent.thigh + " cm" : "—"],
-      ["stats.cat.cup", agent.cup || "—"],
+  function statsTipRows(agent) {
+    return [
+      [I18N.t("stats.cat.height"), agent.height + " cm"],
+      [I18N.t("stats.cat.bust"), agent.bust + " cm"],
+      [I18N.t("stats.cat.hip"), agent.hip + " cm"],
+      [I18N.t("stats.cat.thigh"), agent.thigh != null ? agent.thigh + " cm" : "—"],
+      [I18N.t("stats.cat.cup"), agent.cup || "—"],
     ];
-    return `<div class="stats-tip" aria-hidden="true">${rows.map(([k, v]) => `<span><i>${escapeHtml(I18N.t(k))}</i><b>${escapeHtml(String(v))}</b></span>`).join("")}</div>`;
+  }
+
+  // The tooltip lives on <body>: the pool is a scroll container, so a nested tip gets clipped.
+  function ensureStatsTip() {
+    let el = document.getElementById("stats-tip");
+    if (!el) {
+      el = document.createElement("div");
+      el.id = "stats-tip";
+      el.setAttribute("aria-hidden", "true");
+      el.hidden = true;
+      document.body.appendChild(el);
+    }
+    return el;
+  }
+
+  function showStatsTip(card) {
+    if (!statsMode()) return;
+    const agent = AGENTS.find(a => a.id === card.dataset.id);
+    if (!agent || typeof agent.height !== "number") return;
+    const el = ensureStatsTip();
+    el.innerHTML = statsTipRows(agent).map(([k, v]) => `<span><i>${escapeHtml(k)}</i><b>${escapeHtml(String(v))}</b></span>`).join("");
+    el.hidden = false;
+    const r = card.getBoundingClientRect();
+    const tw = el.offsetWidth;
+    const th = el.offsetHeight;
+    const left = Math.max(8, Math.min(r.left + r.width / 2 - tw / 2, window.innerWidth - tw - 8));
+    let top = r.top - th - 10;
+    if (top < 8) top = Math.min(r.bottom + 10, window.innerHeight - th - 8);
+    el.style.left = left + "px";
+    el.style.top = top + "px";
+  }
+
+  function hideStatsTip() {
+    const el = document.getElementById("stats-tip");
+    if (el) el.hidden = true;
   }
 
   function cardBadges(agent) {
@@ -440,7 +533,6 @@ const I18N = window.I18N;
         ${agent.rank ? `<b class="card-rank" style="--badge:${(RANK_META[agent.rank] || {}).color || '#6b7280'}">${escapeHtml(agent.rank)}</b>` : ''}
         ${specialAttrsOf(agent).length > 0 ? `<i class="card-special-dot" style="--dot:${ATTRIBUTE_COLORS[specialAttrsOf(agent)[0]] || '#f8b5b9'}"></i>` : ''}
         <span><small>${escapeHtml(factionList(agent).join('・'))}</small>${escapeHtml(I18N.agentName(agent))}</span>
-        ${statsMode() ? statsTipHtml(agent) : ''}
       </div>
     `;
   }
@@ -614,14 +706,23 @@ const I18N = window.I18N;
       saveState();
     });
 
-    elements.poolSort.addEventListener('change', e => {
-      state.poolSort = e.target.value;
-      renderSortSub();
-      applyStatsMode();
-      renderPool();
-      updateCounts();
-      saveState();
+    elements.pool.addEventListener('mouseover', e => {
+      const card = e.target.closest ? e.target.closest('.agent-card') : null;
+      if (card) showStatsTip(card);
     });
+    elements.pool.addEventListener('mouseout', e => {
+      const to = e.relatedTarget;
+      if (!to || !(to.closest && to.closest('.agent-card'))) hideStatsTip();
+    });
+    elements.pool.addEventListener('focusin', e => {
+      const card = e.target.closest ? e.target.closest('.agent-card') : null;
+      if (card) showStatsTip(card);
+    });
+    elements.pool.addEventListener('focusout', hideStatsTip);
+    elements.pool.addEventListener('scroll', hideStatsTip, { passive: true });
+    window.addEventListener('scroll', hideStatsTip, true);
+    window.addEventListener('resize', hideStatsTip);
+    document.addEventListener('click', e => { if (!e.target.closest || !e.target.closest('.cycle-select')) closeCycles(); });
 
     elements.tierRoleView.addEventListener('change', e => {
       state.tierRoleView = e.target.value;
@@ -703,7 +804,6 @@ const I18N = window.I18N;
       elements.searchInput.value = "";
       elements.roleSelect.value = "all";
       elements.attributeSelect.value = "all";
-      elements.poolSort.value = "default";
       renderSortSelect();
       document.querySelectorAll('.zzz-faction-button').forEach(b => b.classList.remove('active'));
       renderPool();
@@ -1217,7 +1317,10 @@ const I18N = window.I18N;
           </ul>
         </div>
         <div class="modal-actions">
-          <button class="btn btn-erotic" id="tutorial-erotic" type="button" aria-pressed="${eroticOn() ? 'true' : 'false'}">${escapeHtml(I18N.t('tutorial.erotic'))}${eroticOn() ? '：ON' : '：OFF'}</button>
+          <button class="btn btn-erotic" id="tutorial-erotic" type="button" aria-pressed="${eroticOn() ? 'true' : 'false'}">
+            <svg class="heart" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 21s-7.5-4.7-10-9.2C.6 8.6 2.6 4 7 4c2.2 0 3.8 1.2 5 3 1.2-1.8 2.8-3 5-3 4.4 0 6.4 4.6 5 7.8C19.5 16.3 12 21 12 21z"/></svg>
+            <span>${escapeHtml(I18N.t('tutorial.erotic'))}${eroticOn() ? '：ON' : '：OFF'}</span>
+          </button>
           <button class="btn btn-primary" id="tutorial-close" type="button">開始使用</button>
         </div>
       </div>
@@ -1235,7 +1338,7 @@ const I18N = window.I18N;
       const on = !eroticOn();
       setEroticOn(on);
       eroticBtn.setAttribute('aria-pressed', String(on));
-      eroticBtn.textContent = I18N.t('tutorial.erotic') + (on ? '：ON' : '：OFF');
+      eroticBtn.querySelector('span').textContent = I18N.t('tutorial.erotic') + (on ? '：ON' : '：OFF');
       renderSortSelect();
       showToast(I18N.t('tutorial.erotic') + (on ? '：ON' : '：OFF'), 'info');
     });
