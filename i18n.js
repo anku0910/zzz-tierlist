@@ -982,14 +982,16 @@
         el.innerHTML = t(el.getAttribute('data-i18n-html'), vars);
       } else if (el.hasAttribute('data-i18n-placeholder')) {
         el.placeholder = t(el.getAttribute('data-i18n-placeholder'), vars);
-      } else if (el.hasAttribute('data-i18n-aria')) {
-        el.setAttribute('aria-label', t(el.getAttribute('data-i18n-aria'), vars));
       } else if (el.hasAttribute('data-i18n-title')) {
         const txt = t(el.getAttribute('data-i18n-title'), vars);
         el.title = txt;
         el.setAttribute('aria-label', txt);
-      } else {
+      } else if (el.hasAttribute('data-i18n')) {
         el.textContent = t(el.getAttribute('data-i18n'), vars);
+      }
+      // aria is independent: may combine with placeholder/text above
+      if (el.hasAttribute('data-i18n-aria')) {
+        el.setAttribute('aria-label', t(el.getAttribute('data-i18n-aria'), vars));
       }
     });
     // Update locale selector

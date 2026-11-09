@@ -150,6 +150,7 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 0.35rem 0; }
 .save-status::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--ok); flex: 0 0 auto; }
 
 .view-tabs { display: flex; gap: 3px; background: var(--panel); border: 1px solid var(--line); padding: 3px; }
+#locale-select { font-family: var(--mono); font-size: 0.7rem; padding: 0.2rem 1.5rem 0.2rem 0.4rem; }
 .view-tab {
   display: inline-flex; align-items: center; gap: 0.4rem;
   padding: 0.42rem 1.05rem; border-radius: 0;
@@ -595,6 +596,7 @@ body[data-view="chart"] .chart-tools .chart-roster { flex: 1; max-height: none; 
   .side-pane { min-height: 46vh; }
   .tier-board-wrap { min-height: 46vh; }
   .pool { max-height: 52vh; }
+  #agent-pool { min-height: 60vh; }
   #view-chart.active { flex-direction: column; }
   .chart-tools { flex: 0 0 auto; width: 100%; max-height: none; }
   #chart-export-png-btn { margin-top: 0; }

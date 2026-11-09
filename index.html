@@ -3,14 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#0a0a0c">
+  <meta name="theme-color" content="#d4ff3f">
+  <meta name="description" content="絕區零階級表與強度×易用度二維圖製作工具：63 位代理人、14 陣營、四語介面、純前端離線可用。">
+  <meta property="og:title" content="絕區零 Tier List 製作器">
+  <meta property="og:description" content="製作 ZZZ 階級表與強度×易用度二維圖：63 位代理人、14 陣營、四語介面（zh-TW/en/ja/ko）、純前端離線可用。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://anku0910.github.io/zzz-tierlist/">
+  <meta property="og:image" content="https://anku0910.github.io/zzz-tierlist/docs/screenshots/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:site_name" content="絕區零 Tier List 製作器">
+  <meta property="og:locale" content="zh_TW">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:locale:alternate" content="ja_JP">
+  <meta property="og:locale:alternate" content="ko_KR">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="絕區零 Tier List 製作器">
+  <meta name="twitter:description" content="ZZZ 階級表 × 二維圖排行工具 — 63 代理人、四語、離線可用。">
+  <meta name="twitter:image" content="https://anku0910.github.io/zzz-tierlist/docs/screenshots/og.png">
   <title>絕區零 Tier List 製作器</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23d4ff3f'/%3E%3Cpath d='M18 4 8 18h6l-2 10 10-14h-6z' fill='%23141400'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@800&family=Noto+Sans+TC:wght@400;500;700;900&family=Roboto+Mono:wght@500;700&display=swap" rel="stylesheet">
-  <script src="i18n.js?v=20261109d"></script>
-  <link rel="stylesheet" href="styles.css?v=20261109d">
+  <script src="i18n.js?v=20261109e"></script>
+  <link rel="stylesheet" href="styles.css?v=20261109e">
 </head>
 <body data-view="tier">
   <div class="bg-drift" aria-hidden="true">
@@ -39,11 +56,11 @@
         <svg class="ic" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg>
       </span>
       <div class="brand-text">
-        <input id="agent-title" value="絕區零排行" maxlength="80" placeholder="排行標題" aria-label="排行標題">
+        <input id="agent-title" value="絕區零排行" maxlength="80" placeholder="排行標題" aria-label="排行標題" data-i18n-aria="aria.title">
         <span class="save-status" id="agent-save-status" role="status">已儲存在目前瀏覽器</span>
       </div>
     </div>
-    <nav class="view-tabs" role="tablist" aria-label="檢視切換">
+    <nav class="view-tabs" role="tablist" aria-label="檢視切換" data-i18n-aria="aria.view_tabs">
       <button type="button" class="view-tab active" data-view="tier" role="tab" aria-selected="true">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true" focusable="false"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
         <span data-i18n="tab.tier">階級表</span>
@@ -54,7 +71,7 @@
       </button>
     </nav>
     <div class="locale-switch" style="margin-left: 0.5rem;">
-      <select id="locale-select" aria-label="語言" style="font-family: var(--mono); font-size: 0.7rem; padding: 0.2rem 1.5rem 0.2rem 0.4rem;">
+      <select id="locale-select" aria-label="語言" data-i18n-aria="aria.locale">
         <option value="zh-TW" data-i18n="locale.zh-TW">繁體中文</option>
         <option value="en" data-i18n="locale.en">English</option>
         <option value="ja" data-i18n="locale.ja">日本語</option>
@@ -106,8 +123,8 @@
           <div class="tier-board" id="agent-board"></div>
         </div>
         <div class="board-foot">
-          <label class="view-filter" data-i18n="board.foot.filter_label"><span data-i18n="board.foot.filter_label">顯示職業</span>
-            <select id="tier-role-view" aria-label="階級表顯示職業過濾"></select>
+          <label class="view-filter"><span data-i18n="board.foot.filter_label">顯示職業</span>
+            <select id="tier-role-view" aria-label="階級表顯示職業過濾" data-i18n-aria="aria.tier_role_view"></select>
           </label>
           <span class="view-filter-note" data-i18n="board.foot.filter_note">僅影響顯示 · 不影響排行資料</span>
         </div>
@@ -129,11 +146,11 @@
             <button class="btn btn-sm btn-secondary" id="chart-remove" type="button" disabled data-i18n="btn.chart_remove">從圖上移除</button>
           </div>
           <div class="axis-edit-row">
-            <label data-i18n="chart.axis.y">Y 軸 <input type="text" id="chart-axis-y" value="強度" maxlength="6"></label>
-            <label data-i18n="chart.axis.x">X 軸 <input type="text" id="chart-axis-x" value="易用度" maxlength="6"></label>
+            <label>Y <input type="text" id="chart-axis-y" value="強度" maxlength="6"></label>
+            <label>X <input type="text" id="chart-axis-x" value="易用度" maxlength="6"></label>
           </div>
-          <label class="view-filter" data-i18n="board.foot.filter_label"><span data-i18n="board.foot.filter_label">顯示職業</span>
-            <select id="chart-role-view" aria-label="二維圖顯示職業過濾"></select>
+          <label class="view-filter"><span data-i18n="board.foot.filter_label">顯示職業</span>
+            <select id="chart-role-view" aria-label="二維圖顯示職業過濾" data-i18n-aria="aria.chart_role_view"></select>
           </label>
           <div class="placed-head"><strong data-i18n="chart.placed">已配置</strong><span id="chart-count">0</span></div>
           <div class="chart-roster" id="chart-roster"></div>
@@ -153,14 +170,14 @@
           <div class="chart-line">
             <div class="axis-y" aria-hidden="true">
               <span data-i18n="chart.axis.strong">強</span>
-              <b id="chart-axis-y-label" data-i18n="chart.axis.y">強度</b>
+              <b id="chart-axis-y-label">強度</b>
               <span data-i18n="chart.axis.weak">弱</span>
             </div>
             <div class="chart-center">
-              <div class="chart-board" id="chart-board" aria-label="拖曳或點擊放置角色"></div>
+              <div class="chart-board" id="chart-board" aria-label="拖曳或點擊放置角色" data-i18n-aria="aria.chart_board"></div>
               <div class="axis-x" aria-hidden="true">
                 <span data-i18n="chart.axis.hard">← 難用</span>
-                <b id="chart-axis-x-label" data-i18n="chart.axis.x">易用度</b>
+                <b id="chart-axis-x-label">易用度</b>
                 <span data-i18n="chart.axis.easy">好用 →</span>
               </div>
             </div>
@@ -179,19 +196,19 @@
           </div>
           <span class="side-count" id="agent-library-count" data-i18n="sidebar.count" data-i18n-vars='{"n": "0"}'>0</span>
         </div>
-        <div class="image-mode-switch" id="image-mode-switch" role="group" aria-label="圖片樣式">
+        <div class="image-mode-switch" id="image-mode-switch" role="group" aria-label="圖片樣式" data-i18n-aria="aria.img_mode">
           <button type="button" data-img-mode="square" class="active" data-i18n="img.mode.square">立繪</button>
           <button type="button" data-img-mode="round" data-i18n="img.mode.round">Q版</button>
           <button type="button" data-img-mode="profile" data-i18n="img.mode.profile">頭貼</button>
         </div>
         <label class="search-box">
           <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4 4"></path></svg>
-          <input id="agent-search" type="search" placeholder="" data-i18n-placeholder="sidebar.search.placeholder" aria-label="搜尋角色或陣營">
+          <input id="agent-search" type="search" placeholder="" data-i18n-placeholder="sidebar.search.placeholder" aria-label="搜尋角色或陣營" data-i18n-aria="aria.search">
         </label>
         <div class="filter-row">
-          <select id="zzz-role-select" aria-label="職業篩選"><option value="all" data-i18n="filter.all_roles">全部職業</option></select>
-          <select id="zzz-attribute-select" aria-label="屬性篩選"><option value="all" data-i18n="filter.all_attrs">全部屬性</option></select>
-          <select id="agent-pool-sort" aria-label="排序">
+          <select id="zzz-role-select" aria-label="職業篩選" data-i18n-aria="aria.role_filter"><option value="all" data-i18n="filter.all_roles">全部職業</option></select>
+          <select id="zzz-attribute-select" aria-label="屬性篩選" data-i18n-aria="aria.attr_filter"><option value="all" data-i18n="filter.all_attrs">全部屬性</option></select>
+          <select id="agent-pool-sort" aria-label="排序" data-i18n-aria="aria.sort">
             <option value="default" data-i18n="sort.default">預設排序</option>
             <option value="name" data-i18n="sort.name">依名稱</option>
             <option value="role" data-i18n="sort.role">依職業</option>
@@ -212,9 +229,9 @@
 
   <div class="toast" id="toast" role="status" hidden></div>
 
-  <script src="i18n.js?v=20261109d"></script>
-  <script src="data.js?v=20261109d"></script>
-  <script src="chart.js?v=20261109d"></script>
-  <script src="app.js?v=20261109d"></script>
+  <script src="i18n.js?v=20261109e"></script>
+  <script src="data.js?v=20261109e"></script>
+  <script src="chart.js?v=20261109e"></script>
+  <script src="app.js?v=20261109e"></script>
 </body>
 </html>
