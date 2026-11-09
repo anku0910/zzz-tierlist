@@ -2,7 +2,7 @@
 
 # 젠레스 존 제로 티어 리스트 메이커
 
-**Zenless Zone Zero 티어 리스트 × 2축 차트 제작 도구 — 순수 프론트엔드, 빌드 불필요, 완전 오프라인**
+**Zenless Zone Zero 티어 리스트 × 2축 차트 제작 도구 — PC·모바일·오프라인에서도 사용 가능**
 
 [![JavaScript](https://img.shields.io/badge/JavaScript-Vanilla-F7DF1E?style=flat-square&logo=javascript&logoColor=black)](https://github.com/anku0910/zzz-tierlist)
 [![Runtime](https://img.shields.io/badge/Runtime-100%25_Offline-4c1?style=flat-square)](https://github.com/anku0910/zzz-tierlist)

@@ -2,7 +2,7 @@
 
 # ゼンゼロ Tier List メーカー
 
-**Zenless Zone Zero ティアリスト × 2軸チャート作成ツール — 純フロントエンド・ビルド不要・完全オフライン**
+**Zenless Zone Zero ティアリスト × 2軸チャート作成ツール — PC・スマホ・オフラインでも使える**
 
 [![JavaScript](https://img.shields.io/badge/JavaScript-Vanilla-F7DF1E?style=flat-square&logo=javascript&logoColor=black)](https://github.com/anku0910/zzz-tierlist)
 [![Runtime](https://img.shields.io/badge/Runtime-100%25_Offline-4c1?style=flat-square)](https://github.com/anku0910/zzz-tierlist)

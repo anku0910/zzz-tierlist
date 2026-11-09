@@ -1,27 +1,27 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#d4ff3f">
-  <meta name="description" content="蝯??園?蝝”?撥摨污??典漲鈭雁?ˊ雿極?瘀?63 雿誨?犖??4 ?????隤??Ｕ??垢?Ｙ??舐??>
-  <meta property="og:title" content="蝯???Tier List 鋆賭???>
-  <meta property="og:description" content="鋆賭? ZZZ ??銵刻?撘瑕漲??摨虫?蝬剖?嚗?3 雿誨?犖??4 ?????隤??ｇ?zh-TW/en/ja/ko嚗??垢?Ｙ??舐??>
+  <meta name="description" content="絕區零階級表 × 二維圖排行工具 — 桌面、手機、離線都能用。63 位代理人、14 陣營、四語介面（繁中／EN／日／韓），純前端零建置。">
+  <meta property="og:title" content="絕區零 Tier List 製作器">
+  <meta property="og:description" content="絕區零階級表 × 二維圖排行工具 — 桌面、手機、離線都能用。63 位代理人、14 陣營、四語介面、純前端零建置。">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://anku0910.github.io/zzz-tierlist/">
   <meta property="og:image" content="https://anku0910.github.io/zzz-tierlist/docs/screenshots/og.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:site_name" content="蝯???Tier List 鋆賭???>
+  <meta property="og:site_name" content="絕區零 Tier List 製作器">
   <meta property="og:locale" content="zh_TW">
   <meta property="og:locale:alternate" content="en_US">
   <meta property="og:locale:alternate" content="ja_JP">
   <meta property="og:locale:alternate" content="ko_KR">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="蝯???Tier List 鋆賭???>
-  <meta name="twitter:description" content="ZZZ ??銵?? 鈭雁??銵極????63 隞??鈭箝?隤蝺?具?>
+  <meta name="twitter:title" content="絕區零 Tier List 製作器">
+  <meta name="twitter:description" content="ZZZ 階級表 × 二維圖排行工具 — 63 代理人、14 陣營、四語，桌面／手機／離線都能用。">
   <meta name="twitter:image" content="https://anku0910.github.io/zzz-tierlist/docs/screenshots/og.png">
-  <title>蝯???Tier List 鋆賭???/title>
+  <title>絕區零 Tier List 製作器</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23d4ff3f'/%3E%3Cpath d='M18 4 8 18h6l-2 10 10-14h-6z' fill='%23141400'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -56,130 +56,130 @@
         <svg class="ic" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg>
       </span>
       <div class="brand-text">
-        <input id="agent-title" value="蝯??嗆?銵? maxlength="80" placeholder="??璅?" aria-label="??璅?" data-i18n-aria="aria.title">
-        <span class="save-status" id="agent-save-status" role="status">撌脣摮?桀??汗??/span>
+        <input id="agent-title" value="絕區零排行" maxlength="80" placeholder="排行標題" aria-label="排行標題" data-i18n-aria="aria.title">
+        <span class="save-status" id="agent-save-status" role="status">已儲存在目前瀏覽器</span>
       </div>
     </div>
-    <nav class="view-tabs" role="tablist" aria-label="瑼Ｚ???" data-i18n-aria="aria.view_tabs">
+    <nav class="view-tabs" role="tablist" aria-label="檢視切換" data-i18n-aria="aria.view_tabs">
       <button type="button" class="view-tab active" data-view="tier" role="tab" aria-selected="true">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true" focusable="false"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-        <span data-i18n="tab.tier">??銵?/span>
+        <span data-i18n="tab.tier">階級表</span>
       </button>
       <button type="button" class="view-tab" data-view="chart" role="tab" aria-selected="false">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true" focusable="false"><path d="M3 3v18h18"/><circle cx="9" cy="15" r="1.6"/><circle cx="14" cy="9" r="1.6"/><circle cx="19" cy="14" r="1.6"/></svg>
-        <span data-i18n="tab.chart">鈭雁??/span>
+        <span data-i18n="tab.chart">二維圖</span>
       </button>
     </nav>
     <div class="locale-switch" style="margin-left: 0.5rem;">
-      <select id="locale-select" aria-label="隤?" data-i18n-aria="aria.locale">
-        <option value="zh-TW" data-i18n="locale.zh-TW">蝜?銝剜?</option>
+      <select id="locale-select" aria-label="語言" data-i18n-aria="aria.locale">
+        <option value="zh-TW" data-i18n="locale.zh-TW">繁體中文</option>
         <option value="en" data-i18n="locale.en">English</option>
-        <option value="ja" data-i18n="locale.ja">?交隤?/option>
-        <option value="ko" data-i18n="locale.ko">?筏??/option>
+        <option value="ja" data-i18n="locale.ja">日本語</option>
+        <option value="ko" data-i18n="locale.ko">한국어</option>
       </select>
     </div>
     <div class="header-actions">
       <button class="btn btn-primary" id="agent-download" type="button" data-i18n="btn.download">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true" focusable="false"><path d="M21 15v6H3v-6"/><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/></svg>
-        <span data-i18n="btn.download">銝? PNG</span>
+        <span data-i18n="btn.download">下載 PNG</span>
       </button>
-      <a class="btn btn-secondary" id="stats-source-btn" href="https://modelmetrics.net/measurements/zzz/" target="_blank" rel="noopener" data-i18n="stats.source">皜祇??豢?靘?</a>
+      <a class="btn btn-secondary" id="stats-source-btn" href="https://modelmetrics.net/measurements/zzz/" target="_blank" rel="noopener" data-i18n="stats.source">測量數據來源</a>
       <div class="menu-wrap">
         <button class="btn btn-secondary" id="share-menu-btn" type="button" aria-haspopup="true" aria-expanded="false" data-i18n="btn.share">
-          <span data-i18n="btn.share">?澈???/span>
+          <span data-i18n="btn.share">分享與匯出</span>
           <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"/></svg>
         </button>
         <div class="menu-pop" id="share-menu" hidden>
-          <button type="button" id="rankly-share" data-i18n="menu.share_link">銴ˊ?澈???</button>
-          <button type="button" id="rankly-community-share" data-i18n="menu.community_share">?澈?啁冗蝢?/button>
-          <button type="button" id="rankly-preview" data-i18n="menu.preview">?汗?臬</button>
+          <button type="button" id="rankly-share" data-i18n="menu.share_link">複製分享連結</button>
+          <button type="button" id="rankly-community-share" data-i18n="menu.community_share">分享到社群</button>
+          <button type="button" id="rankly-preview" data-i18n="menu.preview">預覽匯出</button>
           <hr>
-          <button type="button" id="rankly-export" data-i18n="menu.export_json">?臬 JSON</button>
-          <button type="button" id="rankly-import" data-i18n="menu.import_json">?臬 JSON</button>
+          <button type="button" id="rankly-export" data-i18n="menu.export_json">匯出 JSON</button>
+          <button type="button" id="rankly-import" data-i18n="menu.import_json">匯入 JSON</button>
           <input type="file" id="rankly-import-file" accept="application/json,.json" hidden>
         </div>
       </div>
       <button class="btn btn-ghost" id="agent-tutorial" type="button" data-i18n="btn.tutorial">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M9.3 9.5a2.7 2.7 0 0 1 5.4.5c0 1.8-2.7 2.1-2.7 3.6"/><path d="M12 16.5v1"/></svg>
-        <span data-i18n="btn.tutorial">雿輻?飛</span>
+        <span data-i18n="btn.tutorial">使用教學</span>
       </button>
-      <button class="btn btn-ghost" id="agent-reset" type="button" data-i18n="btn.reset">?身</button>
+      <button class="btn btn-ghost" id="agent-reset" type="button" data-i18n="btn.reset">重設</button>
     </div>
   </header>
 
   <main class="app-shell" id="agent-maker">
     <section class="main-pane">
-      <!-- ??銵冽炎閬?-->
+      <!-- 階級表檢視 -->
       <div class="view view-tier active" id="view-tier">
         <div class="board-head">
           <p class="eyebrow" data-i18n="board.eyebrow">Tier Board</p>
-          <span class="hint" data-i18n-html="board.hint"><b>02</b> ?閫?圈?蝝?繚 ???∠?蝘餃?閫摨?繚 暺?蝝??舐楊頛?/span>
+          <span class="hint" data-i18n-html="board.hint"><b>02</b> 拖曳角色到階級 · 雙擊卡片移回角色庫 · 點階級名可編輯</span>
           <span class="ranked-count" id="agent-ranked" data-i18n="board.ranked" data-i18n-vars='{"n": "0"}'>0 ranked</span>
           <div class="board-tools">
-            <button class="btn btn-sm btn-secondary" id="agent-add-tier" type="button" data-i18n="board.add_tier">嚗??啣???</button>
-            <button class="btn btn-sm btn-ghost" id="agent-reset-filters" type="button" data-i18n="board.clear_filters">皜蝭拚</button>
+            <button class="btn btn-sm btn-secondary" id="agent-add-tier" type="button" data-i18n="board.add_tier">＋ 新增階級</button>
+            <button class="btn btn-sm btn-ghost" id="agent-reset-filters" type="button" data-i18n="board.clear_filters">清除篩選</button>
           </div>
         </div>
         <div class="tier-board-wrap">
           <div class="tier-board" id="agent-board"></div>
         </div>
         <div class="board-foot">
-          <label class="view-filter"><span data-i18n="board.foot.filter_label">憿舐內?瑟平</span>
-            <select id="tier-role-view" aria-label="??銵券＊蝷箄璆剝?瞈? data-i18n-aria="aria.tier_role_view"></select>
+          <label class="view-filter"><span data-i18n="board.foot.filter_label">顯示職業</span>
+            <select id="tier-role-view" aria-label="階級表顯示職業過濾" data-i18n-aria="aria.tier_role_view"></select>
           </label>
-          <span class="view-filter-note" data-i18n="board.foot.filter_note">?蔣?輸＊蝷?繚 銝蔣?踵?銵???/span>
+          <span class="view-filter-note" data-i18n="board.foot.filter_note">僅影響顯示 · 不影響排行資料</span>
         </div>
       </div>
 
-      <!-- 鈭雁?炎閬?-->
+      <!-- 二維圖檢視 -->
       <div class="view view-chart" id="view-chart">
         <section class="side-block chart-tools" id="chart-tools">
           <p class="eyebrow" data-i18n="chart.eyebrow">2-Axis Chart</p>
-          <h3 class="chart-tools-title" id="chart-selected-name" data-i18n="chart.none_selected">?芷????/h3>
-          <label class="slider"><span data-i18n="chart.strength">撘瑕漲</span> <strong id="chart-yv">50</strong>
+          <h3 class="chart-tools-title" id="chart-selected-name" data-i18n="chart.none_selected">未選取角色</h3>
+          <label class="slider"><span data-i18n="chart.strength">強度</span> <strong id="chart-yv">50</strong>
             <input type="range" id="chart-y" min="0" max="100" value="50" disabled>
           </label>
-          <label class="slider"><span data-i18n="chart.ease">?摨?/span> <strong id="chart-xv">50</strong>
+          <label class="slider"><span data-i18n="chart.ease">易用度</span> <strong id="chart-xv">50</strong>
             <input type="range" id="chart-x" min="0" max="100" value="50" disabled>
           </label>
           <div class="btn-row">
-            <button class="btn btn-sm btn-secondary" id="chart-front" type="button" disabled data-i18n="btn.chart_front">蝘餉???/button>
-            <button class="btn btn-sm btn-secondary" id="chart-remove" type="button" disabled data-i18n="btn.chart_remove">敺?銝宏??/button>
+            <button class="btn btn-sm btn-secondary" id="chart-front" type="button" disabled data-i18n="btn.chart_front">移至最前</button>
+            <button class="btn btn-sm btn-secondary" id="chart-remove" type="button" disabled data-i18n="btn.chart_remove">從圖上移除</button>
           </div>
           <div class="axis-edit-row">
-            <label>Y <input type="text" id="chart-axis-y" value="撘瑕漲" maxlength="6"></label>
-            <label>X <input type="text" id="chart-axis-x" value="?摨? maxlength="6"></label>
+            <label>Y <input type="text" id="chart-axis-y" value="強度" maxlength="6"></label>
+            <label>X <input type="text" id="chart-axis-x" value="易用度" maxlength="6"></label>
           </div>
-          <label class="view-filter"><span data-i18n="board.foot.filter_label">憿舐內?瑟平</span>
-            <select id="chart-role-view" aria-label="鈭雁?＊蝷箄璆剝?瞈? data-i18n-aria="aria.chart_role_view"></select>
+          <label class="view-filter"><span data-i18n="board.foot.filter_label">顯示職業</span>
+            <select id="chart-role-view" aria-label="二維圖顯示職業過濾" data-i18n-aria="aria.chart_role_view"></select>
           </label>
-          <div class="placed-head"><strong data-i18n="chart.placed">撌脤?蝵?/strong><span id="chart-count">0</span></div>
+          <div class="placed-head"><strong data-i18n="chart.placed">已配置</strong><span id="chart-count">0</span></div>
           <div class="chart-roster" id="chart-roster"></div>
           <details class="chart-guide" open>
-            <summary data-i18n="chart.guide.summary">??隤芣?</summary>
+            <summary data-i18n="chart.guide.summary">操作說明</summary>
             <ol>
-              <li data-i18n="chart.guide.1">暺?喳閫摨怨??莎?????Ｘ蝵殷???交??喲脫?Ｕ?/li>
-              <li data-i18n="chart.guide.2">????隤踵雿蔭嚗???舐?孵??萄凝隤選?Shift ????/li>
-              <li data-i18n="chart.guide.3">???????儐?圈???宏?單??矽?游惜蝝?/li>
-              <li data-i18n="chart.guide.4">?詨?敺?????蝘駁??曉?閫摨恍???/li>
-              <li data-i18n="chart.guide.5">Y嚗 頠詨?蝔勗?湔?典椰?湔?蝺刻摩??/li>
+              <li data-i18n="chart.guide.1">點選右側角色庫角色，再點擊板面放置；或直接拖曳進板面。</li>
+              <li data-i18n="chart.guide.2">拖動圓點調整位置；選取後可用方向鍵微調（Shift 加速）。</li>
+              <li data-i18n="chart.guide.3">圓點重疊時雙擊循環選取；「移至最前」調整層級。</li>
+              <li data-i18n="chart.guide.4">選取後按「從圖上移除」可放回角色庫重排。</li>
+              <li data-i18n="chart.guide.5">Y／X 軸名稱可直接在左側欄編輯。</li>
             </ol>
           </details>
-          <button class="btn btn-secondary btn-block" id="chart-export-png-btn" type="button" data-i18n="btn.chart_export">?臬?” PNG</button>
+          <button class="btn btn-secondary btn-block" id="chart-export-png-btn" type="button" data-i18n="btn.chart_export">匯出圖表 PNG</button>
         </section>
         <div class="chart-frame">
           <div class="chart-line">
             <div class="axis-y" aria-hidden="true">
-              <span data-i18n="chart.axis.strong">撘?/span>
-              <b id="chart-axis-y-label">撘瑕漲</b>
-              <span data-i18n="chart.axis.weak">撘?/span>
+              <span data-i18n="chart.axis.strong">強</span>
+              <b id="chart-axis-y-label">強度</b>
+              <span data-i18n="chart.axis.weak">弱</span>
             </div>
             <div class="chart-center">
-              <div class="chart-board" id="chart-board" aria-label="????蝵株??? data-i18n-aria="aria.chart_board"></div>
+              <div class="chart-board" id="chart-board" aria-label="拖曳或點擊放置角色" data-i18n-aria="aria.chart_board"></div>
               <div class="axis-x" aria-hidden="true">
-                <span data-i18n="chart.axis.hard">????</span>
-                <b id="chart-axis-x-label">?摨?/b>
-                <span data-i18n="chart.axis.easy">憟賜 ??/span>
+                <span data-i18n="chart.axis.hard">← 難用</span>
+                <b id="chart-axis-x-label">易用度</b>
+                <span data-i18n="chart.axis.easy">好用 →</span>
               </div>
             </div>
           </div>
@@ -188,34 +188,34 @@
     </section>
 
     <aside class="side-pane">
-      <!-- ?梁閫摨?-->
+      <!-- 共用角色庫 -->
       <section class="side-block library">
         <div class="side-head">
           <div>
             <p class="eyebrow" data-i18n="sidebar.title">Character Library</p>
-            <h2 data-i18n="sidebar.title">閫摨?/h2>
+            <h2 data-i18n="sidebar.title">角色庫</h2>
           </div>
           <span class="side-count" id="agent-library-count" data-i18n="sidebar.count" data-i18n-vars='{"n": "0"}'>0</span>
         </div>
-        <div class="image-mode-switch" id="image-mode-switch" role="group" aria-label="??璅??" data-i18n-aria="aria.img_mode">
-          <button type="button" data-img-mode="square" class="active" data-i18n="img.mode.square">蝡鼓</button>
-          <button type="button" data-img-mode="round" data-i18n="img.mode.round">Q??/button>
-          <button type="button" data-img-mode="profile" data-i18n="img.mode.profile">?剛票</button>
+        <div class="image-mode-switch" id="image-mode-switch" role="group" aria-label="圖片樣式" data-i18n-aria="aria.img_mode">
+          <button type="button" data-img-mode="square" class="active" data-i18n="img.mode.square">立繪</button>
+          <button type="button" data-img-mode="round" data-i18n="img.mode.round">Q版</button>
+          <button type="button" data-img-mode="profile" data-i18n="img.mode.profile">頭貼</button>
         </div>
         <label class="search-box">
           <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4 4"></path></svg>
-          <input id="agent-search" type="search" placeholder="" data-i18n-placeholder="sidebar.search.placeholder" aria-label="??閫??? data-i18n-aria="aria.search">
+          <input id="agent-search" type="search" placeholder="" data-i18n-placeholder="sidebar.search.placeholder" aria-label="搜尋角色或陣營" data-i18n-aria="aria.search">
         </label>
         <div class="filter-row">
-          <select id="zzz-role-select" aria-label="?瑟平蝭拚" data-i18n-aria="aria.role_filter"><option value="all" data-i18n="filter.all_roles">?券?瑟平</option></select>
-          <select id="zzz-attribute-select" aria-label="撅祆抒祟?? data-i18n-aria="aria.attr_filter"><option value="all" data-i18n="filter.all_attrs">?券撅祆?/option></select>
-          <div class="cycle-select" id="sort-cycle" role="group" aria-label="??" data-i18n-aria="aria.sort"></div>
+          <select id="zzz-role-select" aria-label="職業篩選" data-i18n-aria="aria.role_filter"><option value="all" data-i18n="filter.all_roles">全部職業</option></select>
+          <select id="zzz-attribute-select" aria-label="屬性篩選" data-i18n-aria="aria.attr_filter"><option value="all" data-i18n="filter.all_attrs">全部屬性</option></select>
+          <div class="cycle-select" id="sort-cycle" role="group" aria-label="排序" data-i18n-aria="aria.sort"></div>
         </div>
         <div class="faction-filters" id="zzz-faction-filters"></div>
         <div class="pool-head">
-          <strong data-i18n="pool.head.tier">?芣?銵???/strong>
+          <strong data-i18n="pool.head.tier">未排行角色</strong>
           <span id="agent-visible-count" data-i18n="pool.visible" data-i18n-vars='{"x": "0", "y": "0"}'>0</span>
-          <label class="check"><input type="checkbox" id="agent-toggle-names" checked><span data-i18n="pool.show_names">?迂</span></label>
+          <label class="check"><input type="checkbox" id="agent-toggle-names" checked><span data-i18n="pool.show_names">名稱</span></label>
         </div>
         <div class="pool" id="agent-pool"></div>
       </section>

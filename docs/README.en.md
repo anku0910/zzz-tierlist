@@ -2,7 +2,7 @@
 
 # ZZZ Tier List Maker
 
-**Zenless Zone Zero tier list × 2-axis chart tool — pure frontend, zero build, fully offline**
+**Zenless Zone Zero tier list × 2-axis chart tool — works on desktop, mobile, and offline**
 
 [![JavaScript](https://img.shields.io/badge/JavaScript-Vanilla-F7DF1E?style=flat-square&logo=javascript&logoColor=black)](https://github.com/anku0910/zzz-tierlist)
 [![Runtime](https://img.shields.io/badge/Runtime-100%25_Offline-4c1?style=flat-square)](https://github.com/anku0910/zzz-tierlist)
