@@ -97,7 +97,7 @@
       'chart.axis.easy': '好用 →',
       'chart.guide.summary': '操作說明',
       'chart.guide.1': '點選右側角色庫角色，再點擊板面放置；或直接拖曳進板面。',
-      'chart.guide.2': '拖動圓點調整位置；選取後可用方向鍵微調（Shift 加速）。',
+      'chart.guide.2': '拖動圓點調整位置；選取後可用方向鍵或 WASD 微調（Shift 加速）。',
       'chart.guide.3': '圓點重疊時雙擊循環選取；「移至最前」調整層級。',
       'chart.guide.4': '選取後按「從圖上移除」可放回角色庫重排。',
       'chart.guide.5': 'Y／X 軸名稱可直接在左側欄編輯。',
@@ -105,6 +105,7 @@
       // Sidebar
       'sidebar.title': '角色庫',
       'sidebar.count': '{n} 未排行',
+      'sidebar.count.chart': '{n} 未配置',
       'sidebar.mode.square': '立繪',
       'sidebar.mode.round': 'Q版',
       'sidebar.mode.profile': '頭貼',
@@ -134,7 +135,7 @@
       'tutorial.section2.title': '二維圖',
       'tutorial.section2.1': '點選角色庫角色後<b>點擊板面</b>放置，或直接<b>拖曳</b>進板面',
       'tutorial.section2.2': '<b>拖動圓點</b>調整位置；重疊時<b>雙擊</b>循環選取',
-      'tutorial.section2.3': '選取後可用<b>方向鍵</b>微調（Shift 加速），並可「移至最前」「從圖上移除」',
+      'tutorial.section2.3': '選取後可用<b>方向鍵或 WASD</b>微調（Shift 加速），並可「移至最前」「從圖上移除」',
       'tutorial.section2.4': 'Y／X <b>軸名稱</b>可自訂編輯；兩介面的放置狀態互不影響',
       'tutorial.section3.title': '標記與匯出',
       'tutorial.section3.1': '屬性含<b>特殊</b>（流明／凜刃／烈霜／玄墨）的角色，卡片右下角有<b>圓點標記</b>',
@@ -219,34 +220,26 @@
       'special.烈霜': '烈霜',
       'special.玄墨': '玄墨',
 
-      // Chart axis labels
-      'chart.axis.strong': '強',
-      'chart.axis.weak': '弱',
-      'chart.axis.hard': '← 難用',
-      'chart.axis.easy': '好用 →',
-
       // Filters
       'filter.attr.special': '特殊',
-
-      // Name prompt
-      'name_prompt.title': '你的名字',
-      'name_prompt.question': '怎麼稱呼你？',
-      'name_prompt.hint': '用於預設排行標題（可隨時直接修改標題，不影響其他資料）',
-      'name_prompt.placeholder': '例如：繩匠',
-      'name_prompt.skip': '略過',
-      'name_prompt.save': '儲存',
 
       // Rank
       'rank.S': 'S',
       'rank.A': 'A',
       'rank.∞': '∞',
 
-      // Chart guide items (additional)
-      'chart.guide.6': 'Y／X 軸名稱可直接在左側欄編輯。',
-
-      // Chart axis labels
-      'chart.axis.y': 'Y 軸',
-      'chart.axis.x': 'X 軸',
+      // ARIA labels
+      'aria.title': '排行標題',
+      'aria.view_tabs': '檢視切換',
+      'aria.locale': '語言',
+      'aria.img_mode': '圖片樣式',
+      'aria.search': '搜尋角色或陣營',
+      'aria.role_filter': '職業篩選',
+      'aria.attr_filter': '屬性篩選',
+      'aria.sort': '排序',
+      'aria.tier_role_view': '階級表顯示職業過濾',
+      'aria.chart_role_view': '二維圖顯示職業過濾',
+      'aria.chart_board': '拖曳或點擊放置角色',
     },
     'en': {
       // Language selector
@@ -329,7 +322,7 @@
       'chart.axis.easy': 'Easy →',
       'chart.guide.summary': 'How to use',
       'chart.guide.1': 'Select an agent from the library on the right, then click the board to place; or drag directly onto the board.',
-      'chart.guide.2': 'Drag dots to adjust position; double-click overlapping dots to cycle selection.',
+      'chart.guide.2': 'Drag dots to adjust position; nudge with arrow keys or WASD (Shift for 5x speed). Double-click overlapping dots to cycle selection.',
       'chart.guide.3': 'Use arrow keys to nudge (Shift for 5x speed).',
       'chart.guide.4': 'Click "Remove from chart" to return agent to library.',
       'chart.guide.5': 'Y/X axis labels can be edited in the sidebar.',
@@ -337,6 +330,7 @@
       // Sidebar
       'sidebar.title': 'Agent Library',
       'sidebar.count': '{n} unranked',
+      'sidebar.count.chart': '{n} unplaced',
       'sidebar.mode.square': 'Portrait',
       'sidebar.mode.round': 'Chibi',
       'sidebar.mode.profile': 'Avatar',
@@ -366,7 +360,7 @@
       'tutorial.section2.title': '2-Axis Chart',
       'tutorial.section2.1': 'Pick an agent from the library, then <b>click the board</b> to place; or <b>drag</b> directly onto the board.',
       'tutorial.section2.2': '<b>Drag dots</b> to adjust position; <b>double-click</b> overlapping dots to cycle selection.',
-      'tutorial.section2.3': 'After selecting, use <b>arrow keys</b> to nudge (Shift for 5x speed). "Bring to front" and "Remove" available.',
+      'tutorial.section2.3': 'After selecting, use <b>arrow keys or WASD</b> to nudge (Shift for 5x speed). "Bring to front" and "Remove" available.',
       'tutorial.section2.4': 'Y/X <b>axis labels</b> are editable in the sidebar; tier and chart placements are independent.',
       'tutorial.section3.title': 'Badges & Export',
       'tutorial.section3.1': 'Agents with <b>special</b> attributes (Lumen / Rime / Frost / Ink) show a <b>dot badge</b> on their card.',
@@ -451,37 +445,26 @@
       'special.烈霜': 'Frost',
       'special.玄墨': 'Ink',
 
-      // Chart axis labels (duplicate of earlier block; last-wins in JS)
-      'chart.axis.strong': 'Strong',
-      'chart.axis.weak': 'Weak',
-      'chart.axis.hard': '← Hard',
-      'chart.axis.easy': 'Easy →',
-
       // Filters
       'filter.attr.special': 'Special',
-
-      // Name prompt
-      'name_prompt.title': 'Your Name',
-      'name_prompt.question': 'What should we call you?',
-      'name_prompt.hint': 'Used for default tier list title (you can always edit the title later; name not included in share links).',
-      'name_prompt.placeholder': 'e.g. Rope',
-      'name_prompt.skip': 'Skip',
-      'name_prompt.save': 'Save',
 
       // Rank
       'rank.S': 'S',
       'rank.A': 'A',
       'rank.∞': '∞',
 
-      // Chart guide items (additional)
-      'chart.guide.6': 'Y/X axis labels can be edited in the sidebar.',
-
-      // Chart axis labels
-      'chart.axis.y': 'Y Axis',
-      'chart.axis.x': 'X Axis',
-
-      // Filters
-      'filter.attr.special': 'Special',
+      // ARIA labels
+      'aria.title': 'Tier list title',
+      'aria.view_tabs': 'View switcher',
+      'aria.locale': 'Language',
+      'aria.img_mode': 'Image style',
+      'aria.search': 'Search agents or factions',
+      'aria.role_filter': 'Role filter',
+      'aria.attr_filter': 'Attribute filter',
+      'aria.sort': 'Sort',
+      'aria.tier_role_view': 'Tier board role filter',
+      'aria.chart_role_view': 'Chart role filter',
+      'aria.chart_board': 'Drag or click to place agents',
     },
     'ja': {
       // 言語選択
@@ -564,7 +547,7 @@
       'chart.axis.easy': '易 →',
       'chart.guide.summary': '操作説明',
       'chart.guide.1': '右側のライブラリで<b>エージェントを選択</b>後、<b>ボードをクリック</b>して配置。または直接<b>ドラッグ＆ドロップ</b>。',
-      'chart.guide.2': '<b>ドットをドラッグ</b>して位置調整。重なった場合は<b>ダブルクリック</b>で循環選択。',
+      'chart.guide.2': '<b>ドットをドラッグ</b>して位置調整。選択後は矢印キー／WASD で微調整（Shift で5倍速）。重なった場合は<b>ダブルクリック</b>で循環選択。',
       'chart.guide.3': '選択後は<b>方向キー</b>で微調整（Shiftで高速）。',
       'chart.guide.3': '選択後は<b>方向キー</b>で微調整（Shiftで高速）。',
       'chart.guide.4': '選択後に<b>「最前面へ」</b>で重なり順変更。<b>「チャートから削除」</b>でプールに戻す。',
@@ -573,6 +556,7 @@
       // Sidebar
       'sidebar.title': 'エージェントライブラリ',
       'sidebar.count': '{n} 未配置',
+      'sidebar.count.chart': '{n} 未配置',
       'sidebar.mode.square': '立ち絵',
       'sidebar.mode.round': 'ちびキャラ',
       'sidebar.mode.profile': 'アバター',
@@ -603,7 +587,7 @@
       'tutorial.section2.1': 'ライブラリでキャラクターを<b>選択</b>後、<b>ボードをクリック</b>して配置。または直接<b>ドラッグ＆ドロップ</b>。',
       'tutorial.section2.2': '<b>ドットをドラッグ</b>して位置調整。重なり時は<b>ダブルクリック</b>で循環選択。',
       'tutorial.section2.2': '<b>ドットをドラッグ</b>して位置調整。重なり時は<b>ダブルクリック</b>で循環選択。',
-      'tutorial.section2.3': '選択後は<b>方向キー</b>で微調整（Shiftで5倍速）。「最前面へ」「チャートから削除」も可能。',
+      'tutorial.section2.3': '選択後は<b>方向キーまたは WASD</b>で微調整（Shiftで5倍速）。「最前面へ」「チャートから削除」も可能。',
       'tutorial.section2.4': 'Y／X <b>軸ラベル</b>は左サイドバーで編集可。二つのビューの配置状態は独立。',
       'tutorial.section3.title': 'バッジとエクスポート',
       'tutorial.section3.1': '<b>特殊</b>属性（流明／凜刃／烈霜／玄墨）を持つキャラは、カード右下に<b>ドットバッジ</b>が表示されます。',
@@ -688,34 +672,26 @@
       'special.烈霜': '烈霜',
       'special.玄墨': '玄墨',
 
-      // Chart axis labels
-      'chart.axis.strong': '強',
-      'chart.axis.weak': '弱',
-      'chart.axis.hard': '← 難',
-      'chart.axis.easy': '易 →',
-
       // Filters
       'filter.attr.special': '特殊',
-
-      // Name prompt
-      'name_prompt.title': 'あなたの名前',
-      'name_prompt.question': 'どう呼ばれたいですか？',
-      'name_prompt.hint': 'デフォルトのティアリストタイトルに使われます（後でタイトルを直接編集可能。共有リンクには含まれません）。',
-      'name_prompt.placeholder': '例：ロープ',
-      'name_prompt.skip': 'スキップ',
-      'name_prompt.save': '保存',
 
       // Rank
       'rank.S': 'S',
       'rank.A': 'A',
       'rank.∞': '∞',
 
-      // Chart guide items (additional)
-      'chart.guide.6': 'Y/X軸のラベルは左サイドバーで編集できます。',
-
-      // Chart axis labels
-      'chart.axis.y': 'Y軸',
-      'chart.axis.x': 'X軸',
+      // ARIA labels
+      'aria.title': 'ランキングタイトル',
+      'aria.view_tabs': '表示切替',
+      'aria.locale': '言語',
+      'aria.img_mode': '画像スタイル',
+      'aria.search': 'エージェントや陣営を検索',
+      'aria.role_filter': '職業フィルター',
+      'aria.attr_filter': '属性フィルター',
+      'aria.sort': '並べ替え',
+      'aria.tier_role_view': 'ティアボードの職業表示フィルター',
+      'aria.chart_role_view': 'チャートの職業表示フィルター',
+      'aria.chart_board': 'ドラッグまたはクリックで配置',
     },
     'ko': {
       // 언어 선택
@@ -798,7 +774,7 @@
       'chart.axis.easy': '쉬움 →',
       'chart.guide.summary': '사용법',
       'chart.guide.1': '오른쪽 라이브러리에서 <b>에이전트 선택</b> 후 <b>보드 클릭</b>으로 배치하거나 직접 <b>드래그</b>하세요.',
-      'chart.guide.2': '<b>드래그</b>로 위치 조정 · 겹치면 <b>더블클릭</b>으로 순환 선택',
+      'chart.guide.2': '<b>드래그</b>로 위치 조정 · 선택 후 방향키 또는 WASD로 미세 조정 (Shift로 5배) · 겹치면 <b>더블클릭</b>으로 순환 선택',
       'chart.guide.3': '선택 후 <b>방향키</b>로 미세 조정 (Shift로 5배 속도)',
       'chart.guide.4': '선택 후 <b>맨 앞으로</b>로 순서 변경 · <b>차트에서 제거</b>로 풀에 반환',
       'chart.guide.5': '<b>Y/X 축 라벨</b>은 왼쪽 사이드바에서 편집 가능',
@@ -806,6 +782,7 @@
       // Sidebar
       'sidebar.title': '에이전트 라이브러리',
       'sidebar.count': '{n} 미배치',
+      'sidebar.count.chart': '{n} 미배치',
       'sidebar.mode.square': '일러스트',
       'sidebar.mode.round': '치비',
       'sidebar.mode.profile': '프로필',
@@ -837,7 +814,7 @@
       'tutorial.section2.title': '2축 차트',
       'tutorial.section2.1': '라이브러리에서 에이전트 <b>선택</b> 후 <b>보드 클릭</b>으로 배치하거나 직접 <b>드래그</b>해 보드에 배치.',
       'tutorial.section2.2': '<b>드래그</b>로 위치 조정. 겹칠 때 <b>더블클릭</b>으로 순환 선택.',
-      'tutorial.section2.3': '선택 후 <b>방향키</b>로 미세 조정 (Shift로 5배 속도). "맨 앞으로" "차트에서 제거" 가능.',
+      'tutorial.section2.3': '선택 후 <b>방향키 또는 WASD</b>로 미세 조정 (Shift로 5배 속도). "맨 앞으로" "차트에서 제거" 가능.',
       'tutorial.section2.4': 'Y/X <b>축 이름</b>은 왼쪽 사이드바에서 편집 가능. 두 뷰의 배치 상태는 서로 독립적입니다.',
 
       // Tutorial section 3
@@ -924,34 +901,26 @@
       'special.烈霜': '열상',
       'special.玄墨': '현묵',
 
-      // Chart axis labels
-      'chart.axis.strong': '강',
-      'chart.axis.weak': '약',
-      'chart.axis.hard': '← 어려움',
-      'chart.axis.easy': '쉬움 →',
-
       // Filters
       'filter.attr.special': '특수',
-
-      // Name prompt
-      'name_prompt.title': '당신의 이름',
-      'name_prompt.question': '어떻게 불리고 싶으신가요?',
-      'name_prompt.hint': '기본 티어리스트 제목에 사용됩니다 (나중에 제목 직접 수정 가능, 공유 링크엔 포함 안 됨).',
-      'name_prompt.placeholder': '예: 로프',
-      'name_prompt.skip': '건너뛰기',
-      'name_prompt.save': '저장',
 
       // Rank
       'rank.S': 'S',
       'rank.A': 'A',
       'rank.∞': '∞',
 
-      // Chart guide items (additional)
-      'chart.guide.6': 'Y/X 축 라벨은 왼쪽 사이드바에서 편집할 수 있습니다.',
-
-      // Chart axis labels
-      'chart.axis.y': 'Y 축',
-      'chart.axis.x': 'X 축',
+      // ARIA labels
+      'aria.title': '순위 제목',
+      'aria.view_tabs': '보기 전환',
+      'aria.locale': '언어',
+      'aria.img_mode': '이미지 스타일',
+      'aria.search': '에이전트 또는 진영 검색',
+      'aria.role_filter': '직업 필터',
+      'aria.attr_filter': '속성 필터',
+      'aria.sort': '정렬',
+      'aria.tier_role_view': '티어 보드 직업 표시 필터',
+      'aria.chart_role_view': '차트 직업 표시 필터',
+      'aria.chart_board': '드래그 또는 클릭으로 배치',
     }
   };
 
