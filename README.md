@@ -10,6 +10,8 @@
 
 [繁體中文](README.md) · [English](docs/README.en.md) · [日本語](docs/README.ja.md) · [한국어](docs/README.ko.md)
 
+<img src="docs/screenshots/tier-view.png" width="800" alt="階級表畫面">
+
 </div>
 
 ---
@@ -72,3 +74,14 @@
 - `faction` 可為字串或**陣列**（雙陣營：零號·安比＝狡兔屋＋奧波勒斯小隊）
 - `AGENT_NAMES`：en／ja／ko 顯示名對照表（`I18N.agentName()` 於 zh-TW 直接使用 `name`）
 - `FACTIONS`（14）與 `ROLE_COLORS`／`ATTRIBUTE_COLORS`／`FACTION_LOGOS`／`FACTION_COLORS` 色票
+
+## 貢獻
+
+資料勘誤直接 PR `data.js`；完整流程（新增角色、i18n 慣例、驗證）請見 [CONTRIBUTING.md](CONTRIBUTING.md)。
+
+## AI 使用紀錄
+
+本專案的內容建置（資料整理、程式碼、文件）主要由 AI 工具完成，人類負責方向、測試與校對：
+
+- **工具**：pi CLI、opencode2 CLI
+- **模型**：deepseek-v4.1-flash-free、big-pickle、glm-5.3-flash

@@ -4,16 +4,13 @@
 
 **Zenless Zone Zero ティアリスト × 2軸チャート作成ツール — 純フロントエンド・ビルド不要・完全オフライン**
 
-[![Platform](https://img.shields.io/badge/Platform-Web_2026-0a0a0c?style=flat-square&labelColor=0a0a0c&color=d4ff3f)](https://github.com/anku0910/zzz-tierlist)
 [![JavaScript](https://img.shields.io/badge/JavaScript-Vanilla-F7DF1E?style=flat-square&logo=javascript&logoColor=black)](https://github.com/anku0910/zzz-tierlist)
-[![Build](https://img.shields.io/badge/Build-None_Needed-d4ff3f?style=flat-square&labelColor=0a0a0c)](https://github.com/anku0910/zzz-tierlist)
 [![Runtime](https://img.shields.io/badge/Runtime-100%25_Offline-4c1?style=flat-square)](https://github.com/anku0910/zzz-tierlist)
 [![i18n](https://img.shields.io/badge/i18n-zh--TW_·_en_·_ja_·_ko-4a90d9?style=flat-square)](#多言語対応)
-[![License](https://img.shields.io/github/license/anku0910/zzz-tierlist?style=flat-square)](../LICENSE)
-[![Stars](https://img.shields.io/github/stars/anku0910/zzz-tierlist?style=flat-square&color=d4ff3f)](https://github.com/anku0910/zzz-tierlist/stargazers)
-[![PRs](https://img.shields.io/badge/PRs-Welcome-ff4655?style=flat-square)](https://github.com/anku0910/zzz-tierlist/pulls)
 
 [繁體中文](../README.md) · [English](README.en.md) · [日本語](README.ja.md) · [한국어](README.ko.md)
+
+<img src="screenshots/tier-view.png" width="800" alt="ティアリスト画面">
 
 </div>
 
@@ -23,13 +20,13 @@
 
 Zenless Zone Zero（ゼンレスゾーンゼロ）向けのコミュニティツール：**ティアリスト**と**強度 × 使いやすさの2軸チャート**を作成できます。純粋な vanilla JavaScript で、ビルドもバックエンドも不要。全アセットがローカルのため、`file://` で直接開いても完全に動作します。
 
-UIは「グラファイトブラック × ネオンライム」の ZZZ ネイティブデザインで、4言語（繁體中文／English／日本語／한국어）に対応。UI文字もキャラ名も即座に切り替わります。
+4言語（繁體中文／English／日本語／한국어）に対応。UI文字もキャラ名も即座に切り替わります。
 
 ## プレイヤーガイド
 
 **収録内容**
 
-- **63人のエージェント**（未実装はグレースケール表示）、**14の公式陣営**、7職業（強攻／撃破／異常／支援／防護／命破／鋒御）、7属性＋4特殊属性（流明／凜刃／烈霜／玄墨）
+- **63人のエージェント**の職業を収録（強攻／撃破／異常／支援／防護／命破／鋒御）
 - 職業・属性・レアリティは検証済み（レアリティはFandomデータと照合）。データの修正は `data.js` へのPRで歓迎します
 
 **操作早見表**
@@ -38,10 +35,10 @@ UIは「グラファイトブラック × ネオンライム」の ZZZ ネイテ
 |---|---|---|
 | 配置 | ドラッグで配置／クリックで即配置 | キャラ選択後にボードをクリック／直接ドラッグ |
 | 戻す | ダブルクリック／ライブラリへドラッグ | 「チャートから削除」 |
-| 微調整 | — | 矢印キー または `W A S D`（`Shift` ＝ 5倍ステップ） |
-| 重なり選択 | — | ダブルクリックで循環切替 |
-| 重なり順 | — | 「最前面へ」 |
-| 画像モード | カード右クリック：立ち絵／ちびキャラ／アバター | — |
+| 微調整 |  | 矢印キー または `W A S D`（`Shift` ＝ 5倍ステップ） |
+| 重なり選択 |  | ダブルクリックで循環切替 |
+| 重なり順 |  | 「最前面へ」 |
+| 画像モード | カード右クリック：立ち絵／ちびキャラ／アバター |  |
 
 **発榜ワークフロー（Discord／Reddit／フォーラム向け）**
 
@@ -49,20 +46,13 @@ UIは「グラファイトブラック × ネオンライム」の ZZZ ネイテ
 2. **高速スイープ** — レアリティ／属性順に並べ替え、Sランクから配置してAランクで埋める
 3. **2軸プロット** — チャートに切替、強度 × 使いやすさに配置。軸名はカスタム可能（例：「深層攻防／初心者向け」）
 4. **エクスポート** — PNGは2倍スケール・暗色背景合成で、そのまま貼り付け可能
-5. **共有** — 共有リンクはボード状態ごと渡る。JSONエクスポートでバージョンのスナップショットも保存
 
 ## 機能
 
 - **ティアリスト**：ドラッグ／クリックで配置、ダブルクリックでプールへ戻す、ティア名と色の編集、「職業表示」フィルター（表示のみでデータに影響なし）
 - **2軸チャート**：クリック／ドラッグで配置、ドットのドラッグ、重なったドットはダブルクリックで循環選択、**矢印キー／WASD での微調整**（Shift で高速）、Y/X 軸名編集、「職業表示」フィルター、PNG エクスポート（canvas 手描き）
-- **配置状態の分離**：ティアリストとチャートの配置は互いに影響しません
 - **キャラライブラリ**（右サイドバー共通）：検索（**各言語のキャラ名に対応**）、14陣営ロゴフィルター、職業／属性／並べ替え、「特殊」属性カテゴリ
 - **3つの画像モード**：立ち絵／ちびキャラ／アバター（Inter-Knot アイコン）。カード右クリックで個別切替
-- **特殊属性バッジ**：流明／凜刃／烈霜／玄墨 のキャラに専用バッジとドットを表示
-- **多言語**：繁體中文／English／日本語／한국어、言語の自動検出と即時切替
-- **エクスポート**：ティアリスト PNG（html2canvas ＋ canvas フォールバック）、チャート PNG、共有リンク、JSON 入出力、プレビュー
-- **チュートリアル**：初回訪問時に自動表示、いつでも再表示可能
-- **パーソナライズ**：初回に名前を尋ね、デフォルトタイトルを自動生成
 - **永続化**：localStorage `zzz-tierlist-v2`、旧データは自動移行
 
 ## プロジェクト構成
@@ -85,34 +75,13 @@ UIは「グラファイトブラック × ネオンライム」の ZZZ ネイテ
 - `AGENT_NAMES`：en／ja／ko 表示名マップ（`I18N.agentName()` は zh-TW では `name` を直接使用）
 - `FACTIONS`（14）と `ROLE_COLORS`／`ATTRIBUTE_COLORS`／`FACTION_LOGOS`／`FACTION_COLORS` パレット
 
-## 多言語対応
+## コントリビューション
 
-- ヘッダーのセレクトで切替。選択は `localStorage` に保存され、未選択時はブラウザ言語を自動検出
-- 静的文字列：`data-i18n` 属性（`-html`／`-placeholder`／`-title` バリエーション対応）を `applyStatic()` が翻訳
-- 動的コンテンツ：`setLocale()` が `i18n:change` イベントを発火し、`app.js` がライブラリ・ティアカード・チャートを再描画
+データの修正は `data.js` へ直接 PR。詳細な手順（キャラ追加、i18n の規約、検証）は [CONTRIBUTING.md](../CONTRIBUTING.md) を参照。
 
-## アセットパイプライン（開発）
+## AI 利用記録
 
-```bash
-python tools/fetch_zzz_assets.py --dry-run   # 取得計画の確認（書き込みなし）
-python tools/fetch_zzz_assets.py             # 取得＋ assets/zzz/ へ配置
-```
+コンテンツ制作（データ整理・コード・ドキュメント）は主に AI ツールで作成し、人間が方向付け・テスト・校正を担当：
 
-ソースは Fandom の `api.php` エンドポイント（Cloudflare に 403 される `/wiki/*` HTML は不使用）。スロットリングとリトライは内蔵。**実行時は完全オフライン** — サイトは Fandom に依存しません。
-
-## 開発と検証
-
-```bash
-pip install playwright && playwright install msedge
-python tools/verify_theweb.py   # 51項目の自動チェック、スクリーンショットは _verify/ へ
-```
-
-## デザインシステム
-
-- グラファイトブラック `#0a0a0c`、パネル3階調 `#131316 / #1a1a1f / #222228`、アクセントはネオンライム `#d4ff3f` のみ
-- 真円要素（ランクバッジ・チャートドット・アバター・ステータスドット）以外は角丸ゼロ。clip-path の斜めカットはエクスポート領域の外のみ
-- PNG エクスポート領域は hex/rgba のみ（html2canvas 互換）。テーマ色変更時は `app.js` と `chart.js` の描画も同期が必要
-
-## ライセンス
-
-[MIT](../LICENSE) © 2026 anku0910
+- **ツール**：pi CLI、opencode2 CLI
+- **モデル**：deepseek-v4.1-flash-free、big-pickle、glm-5.3-flash
