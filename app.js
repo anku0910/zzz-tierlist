@@ -338,6 +338,10 @@ const I18N = window.I18N;
 
   /* ---------- sort options & measurement mode ---------- */
 
+  let statsTipTimer = null;
+  let tipTouchAt = 0;
+  // touch taps also emit synthetic mouse events; ignore those for a short while
+  function recentTouch() { return Date.now() - tipTouchAt < 1500; }
   const EROTIC_KEY = "zzz-erotic-on";
   const MEASURE_CATS = ["height", "bust", "hip", "thigh", "cup"];
   const CUP_ORDER = ["", "A", "B", "C", "D", "DD", "E", "F", "FF", "G", "GG", "H", "HH", "J", "JJ", "K"];
@@ -495,6 +499,7 @@ const I18N = window.I18N;
     if (!statsMode()) return;
     const agent = AGENTS.find(a => a.id === card.dataset.id);
     if (!agent || typeof agent.height !== "number") return;
+    clearTipTimer();
     const el = ensureStatsTip();
     el.innerHTML = statsTipRows(agent).map(([k, v]) => `<span><i>${escapeHtml(k)}</i><b>${escapeHtml(String(v))}</b></span>`).join("");
     el.hidden = false;
@@ -508,9 +513,26 @@ const I18N = window.I18N;
     el.style.top = top + "px";
   }
 
+  function clearTipTimer() {
+    if (statsTipTimer) { clearTimeout(statsTipTimer); statsTipTimer = null; }
+  }
+
   function hideStatsTip() {
+    // on touch the tip lingers: focusout / layout scroll fire right after a tap
+    if (recentTouch()) { hideStatsTipSoon(2400); return; }
+    clearTipTimer();
     const el = document.getElementById("stats-tip");
     if (el) el.hidden = true;
+  }
+
+  // a quick touch tap still deserves a readable moment
+  function hideStatsTipSoon(ms) {
+    clearTipTimer();
+    statsTipTimer = setTimeout(() => {
+      const el = document.getElementById("stats-tip");
+      if (el) el.hidden = true;
+      statsTipTimer = null;
+    }, ms);
   }
 
   function cardBadges(agent) {
@@ -707,10 +729,22 @@ const I18N = window.I18N;
     });
 
     elements.pool.addEventListener('mouseover', e => {
+      if (recentTouch()) return;
       const card = e.target.closest ? e.target.closest('.agent-card') : null;
       if (card) showStatsTip(card);
     });
+    // touch devices have no hover: press a card to read its measurements
+    elements.pool.addEventListener('pointerdown', e => {
+      if (e.pointerType === 'mouse') return;
+      tipTouchAt = Date.now();
+      const card = e.target.closest ? e.target.closest('.agent-card') : null;
+      if (card) showStatsTip(card);
+    });
+    ['pointerup', 'pointercancel', 'pointerleave'].forEach(evt => {
+      elements.pool.addEventListener(evt, e => { if (e.pointerType !== 'mouse') hideStatsTipSoon(2400); });
+    });
     elements.pool.addEventListener('mouseout', e => {
+      if (recentTouch()) return;
       const to = e.relatedTarget;
       if (!to || !(to.closest && to.closest('.agent-card'))) hideStatsTip();
     });
@@ -1039,6 +1073,8 @@ const I18N = window.I18N;
   function bindLongPress(card) {
     card.addEventListener('pointerdown', e => {
       if (e.pointerType === 'mouse') return;
+      // measurement mode reads values on press, so hold-to-cycle would fight it
+      if (statsMode()) return;
       longPressTimer = setTimeout(() => {
         longPressTimer = null;
         card.dataset.longPressed = "1";

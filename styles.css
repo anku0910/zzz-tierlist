@@ -610,6 +610,10 @@ body[data-view="chart"] .chart-tools .chart-roster { flex: 1; max-height: none; 
   /* 讓外殼隨內容長高（預設 flex:1 會被鎖在 100vh，導致圖表溢出後被側欄覆蓋） */
   .app-shell { display: flex; flex-direction: column; flex: 0 0 auto; }
   .main-pane { min-height: 0; }
+  /* 窄機型：按鈕改為換行，不再撐出 382px 造成水平捲動 */
+  .app-header { padding: 0.6rem 0.9rem; gap: 0.65rem; }
+  .brand { min-width: 0; }
+  .header-actions { flex-wrap: wrap; row-gap: 0.4rem; }
   .main-pane { min-height: 66vh; }
   .view.active { min-height: 60vh; }
   .side-pane { min-height: 46vh; }
