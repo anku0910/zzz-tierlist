@@ -80,8 +80,43 @@
       el.style.top = (100 - p.y) + '%';
       el.title = dotTitle(agentId, p);
     }
+    positionPad();
     if (hooks.onPos) hooks.onPos(agentId);
     if (hooks.onChange) hooks.onChange(agentId);
+  }
+
+  function touchDevice() {
+    const coarse = typeof window.matchMedia === 'function' && window.matchMedia('(pointer: coarse)').matches;
+    return coarse || 'ontouchstart' in window;
+  }
+
+  // Touch devices have no arrow keys, so the selected avatar gets an on-screen D-pad.
+  function positionPad() {
+    const pad = board.querySelector('.chart-pad');
+    const p = pad ? get(state.chart.selected) : null;
+    if (!p) return;
+    pad.style.left = p.x + '%';
+    pad.style.top = (100 - p.y) + '%';
+  }
+
+  function renderPad() {
+    board.querySelectorAll('.chart-pad').forEach(el => el.remove());
+    const id = state.chart.selected;
+    if (!touchDevice() || !id || !get(id)) return;
+    const pad = document.createElement('div');
+    pad.className = 'chart-pad';
+    [['up', 0, 2], ['left', -2, 0], ['right', 2, 0], ['down', 0, -2]].forEach(([dir, dx, dy]) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'pad-' + dir;
+      b.textContent = dir === 'up' ? '\u25B2' : dir === 'down' ? '\u25BC' : dir === 'left' ? '\u25C0' : '\u25B6';
+      b.title = I18N.t('chart.pad.' + dir);
+      b.setAttribute('aria-label', b.title);
+      b.addEventListener('click', e => { e.stopPropagation(); nudge(id, dx, dy); });
+      pad.appendChild(b);
+    });
+    board.appendChild(pad);
+    positionPad();
   }
 
   function bringFront(agentId) {
@@ -143,6 +178,7 @@
       bindDot(el, id);
       board.appendChild(el);
     }
+    renderPad();
     applyRoleView();
   }
 

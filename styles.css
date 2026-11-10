@@ -459,6 +459,23 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 0.35rem 0; }
 }
 .axis-x { display: flex; justify-content: space-between; align-items: center; font-size: 0.76rem; color: var(--dim); }
 .axis-x b { color: var(--acc); font-size: 0.86rem; letter-spacing: 2px; }
+/* 觸控裝置：選取中的圓點四周顯示方向鍵（手機沒有實體方向鍵） */
+.chart-pad {
+  position: absolute; width: 150px; height: 150px; transform: translate(-50%, -50%);
+  display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr);
+  gap: 4px; pointer-events: none; z-index: 3000;
+}
+.chart-pad button {
+  pointer-events: auto; border-radius: 0; padding: 0;
+  border: 1px solid var(--acc-line); background: rgba(10, 10, 12, 0.85); color: var(--acc);
+  font-size: 0.74rem; line-height: 1; display: grid; place-items: center;
+  cursor: pointer; touch-action: manipulation;
+}
+.chart-pad button:active { background: var(--acc); color: #141400; }
+.chart-pad .pad-up { grid-area: 1 / 2; }
+.chart-pad .pad-left { grid-area: 2 / 1; }
+.chart-pad .pad-right { grid-area: 2 / 3; }
+.chart-pad .pad-down { grid-area: 3 / 2; }
 .chart-dot {
   position: absolute; width: 8.6%; aspect-ratio: 1;
   transform: translate(-50%, -50%); border-radius: 50%;
@@ -590,7 +607,9 @@ body[data-view="chart"] .chart-tools .chart-roster { flex: 1; max-height: none; 
 }
 @media (max-width: 1140px) {
   body { overflow: auto; }
-  .app-shell { display: flex; flex-direction: column; }
+  /* 讓外殼隨內容長高（預設 flex:1 會被鎖在 100vh，導致圖表溢出後被側欄覆蓋） */
+  .app-shell { display: flex; flex-direction: column; flex: 0 0 auto; }
+  .main-pane { min-height: 0; }
   .main-pane { min-height: 66vh; }
   .view.active { min-height: 60vh; }
   .side-pane { min-height: 46vh; }
@@ -599,6 +618,10 @@ body[data-view="chart"] .chart-tools .chart-roster { flex: 1; max-height: none; 
   #agent-pool { min-height: 60vh; }
   #view-chart.active { flex-direction: column; }
   .chart-tools { flex: 0 0 auto; width: 100%; max-height: none; }
+  /* 直立手機：圖板區不再被 flex 壓扁（原本會塌成 37px 高而被裁掉） */
+  .chart-frame { flex: 0 0 auto; min-height: 0; overflow: visible; padding: 0.9rem 0.55rem; }
+  .chart-center { width: 100%; max-width: 100%; }
+  .chart-board { width: min(100%, 58vh); margin: 0 auto; }
   #chart-export-png-btn { margin-top: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
