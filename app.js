@@ -350,6 +350,11 @@ const I18N = window.I18N;
     try { return localStorage.getItem(EROTIC_KEY) === "1"; } catch (e) { return false; }
   }
 
+  function eroticLabel(on) {
+    const state = (on === undefined ? eroticOn() : on) ? 'ON' : 'OFF';
+    return I18N.t('tutorial.erotic') + '：' + state;
+  }
+
   function setEroticOn(on) {
     try {
       if (on) localStorage.setItem(EROTIC_KEY, "1");
@@ -1351,10 +1356,7 @@ const I18N = window.I18N;
           </ul>
         </div>
         <div class="modal-actions">
-          <button class="btn btn-erotic" id="tutorial-erotic" type="button" aria-pressed="${eroticOn() ? 'true' : 'false'}">
-            <svg class="heart" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 21s-7.5-4.7-10-9.2C.6 8.6 2.6 4 7 4c2.2 0 3.8 1.2 5 3 1.2-1.8 2.8-3 5-3 4.4 0 6.4 4.6 5 7.8C19.5 16.3 12 21 12 21z"/></svg>
-            <span>${escapeHtml(I18N.t('tutorial.erotic'))}${eroticOn() ? '：ON' : '：OFF'}</span>
-          </button>
+          <button class="btn btn-erotic" id="tutorial-erotic" type="button" aria-pressed="${eroticOn() ? 'true' : 'false'}" title="${escapeHtml(eroticLabel())}" aria-label="${escapeHtml(eroticLabel())}"></button>
           <button class="btn btn-primary" id="tutorial-close" type="button">開始使用</button>
         </div>
       </div>
@@ -1372,7 +1374,8 @@ const I18N = window.I18N;
       const on = !eroticOn();
       setEroticOn(on);
       eroticBtn.setAttribute('aria-pressed', String(on));
-      eroticBtn.querySelector('span').textContent = I18N.t('tutorial.erotic') + (on ? '：ON' : '：OFF');
+      eroticBtn.title = eroticLabel(on);
+      eroticBtn.setAttribute('aria-label', eroticLabel(on));
       renderSortSelect();
       showToast(I18N.t('tutorial.erotic') + (on ? '：ON' : '：OFF'), 'info');
     });

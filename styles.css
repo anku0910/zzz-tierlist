@@ -661,36 +661,24 @@ body[data-stats-mode="on"] #stats-source-btn { display: inline-flex; }
 }
 .cycle-menu button:hover { background: var(--panel-2); color: var(--acc); }
 .cycle-menu button[aria-selected="true"] { color: var(--acc); background: rgba(212, 255, 63, 0.07); }
-/* 好色選單開關：極簡雙色徽章（深綠底＋紫框），貼齊教學遮罩層左下角 */
+/* 好色選單開關：幾乎看不見的小點（20% 不透明度、顏色微差、無文字） */
 .btn-erotic {
-  position: fixed; left: 1.25rem; bottom: 1.25rem; z-index: 10;
-  transform: scale(1.2);
-  transform-origin: left bottom;
-  display: inline-flex; align-items: center; gap: 0.55em;
-  padding: 0.5em 1em;
-  font-family: var(--mono); font-size: 0.62rem; font-weight: 800; letter-spacing: 0.09em;
-  color: #c9c0ea;
-  background: #10231b;
-  border: 1px solid #6b5ca5;
-  border-radius: 0;
-  opacity: 0.86;
-  transition: opacity var(--transition), background var(--transition), border-color var(--transition), color var(--transition);
+  position: fixed; left: 1rem; bottom: 1rem; z-index: 10;
+  width: 30px; height: 30px; min-height: 0; padding: 0;
+  display: grid; place-items: center;
+  background: none; border: 0; border-radius: 0;
+  opacity: 0.2;
+  clip-path: none;
+  transition: opacity var(--transition);
 }
-.btn-erotic .heart { width: 1.05em; height: 1.05em; fill: #7d6bb5; flex: 0 0 auto; transition: fill var(--transition); }
-.btn-erotic:hover { opacity: 1; border-color: #9b8ad6; color: #e2dbff; background: #142a20; }
-.btn-erotic[aria-pressed="true"] {
-  color: #ece7ff; border-color: #b9a8f0; background: #17301f;
+.btn-erotic::before {
+  content: ''; width: 9px; height: 9px; border-radius: 50%;
+  background: #6e6e78; transition: background var(--transition);
 }
-.btn-erotic[aria-pressed="true"] .heart { fill: #b9a8f0; animation: heartbeat 1.3s ease-in-out infinite; }
-@keyframes heartbeat {
-  0%, 100% { transform: scale(1); }
-  22% { transform: scale(1.35); }
-  36% { transform: scale(1); }
-  54% { transform: scale(1.22); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .btn-erotic[aria-pressed="true"] .heart { animation: none; }
-}
+.btn-erotic:hover { opacity: 0.55; background: none; border: 0; }
+.btn-erotic[aria-pressed="true"] { opacity: 0.2; }
+.btn-erotic[aria-pressed="true"]:hover { opacity: 0.6; }
+.btn-erotic[aria-pressed="true"]::before { background: #ffafb8; }
 /* 數值飄浮框：置於 body（角色庫是捲動容器，巢狀會被裁切），最高層級 */
 #stats-tip {
   position: fixed; z-index: 9999; pointer-events: none;
